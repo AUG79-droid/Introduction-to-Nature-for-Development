@@ -1,0 +1,2485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comunicando el Valor de la Naturaleza · Airbus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --surface: #fefcf4;
+      --surface-low: #fbfaef;
+      --surface-lowest: #ffffff;
+      --surface-highest: #e8ead7;
+      --surface-high: #eeefdf;
+      --surface-variant: #e8ead7;
+      --on-surface: #36392c;
+      --on-surface-variant: #636657;
+      --primary: #1c7245;
+      --primary-dim: #05663a;
+      --primary-container: #a1f5bc;
+      --secondary: #007071;
+      --secondary-container: #a5faf9;
+      --tertiary: #935253;
+      --tertiary-container: #f7a6a6;
+      --outline-variant: rgba(127,130,115,.18);
+      --shadow: 0 12px 40px rgba(54,57,44,.08);
+      --shadow-lg: 0 24px 70px rgba(54,57,44,.12);
+      --gradient-primary: linear-gradient(135deg, #1c7245 0%, #05663a 100%);
+      --gradient-secondary: linear-gradient(135deg, #007071 0%, #006363 100%);
+      --gradient-quiz: linear-gradient(135deg, rgba(28,114,69,.12), rgba(0,112,113,.12));
+      --danger: #b33938;
+      --success: #0d693d;
+      --radius-xl: 3rem;
+      --radius-lg: 2rem;
+      --radius-pill: 9999px;
+      --line: linear-gradient(to bottom, rgba(28,114,69,.35) 0%, rgba(0,112,113,.28) 50%, rgba(147,82,83,.22) 100%);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--surface);
+      color: var(--on-surface);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .022;
+      background-image:
+        linear-gradient(rgba(54,57,44,.35) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(54,57,44,.35) 1px, transparent 1px);
+      background-size: 34px 34px;
+      z-index: -2;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 450, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+    }
+    .shell {
+      width: min(1200px, calc(100% - 28px));
+      margin: 0 auto;
+    }
+    .topbar {
+      position: sticky;
+      top: 12px;
+      z-index: 50;
+      width: min(1200px, calc(100% - 28px));
+      margin: 12px auto 0;
+      padding: 16px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      border-radius: 28px;
+      background: rgba(254,252,244,.8);
+      backdrop-filter: blur(24px);
+      box-shadow: 0 18px 40px rgba(54,57,44,.08);
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+    .brand-badge {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      background: var(--gradient-primary);
+      color: white;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 16px 24px rgba(28,114,69,.18);
+      flex: 0 0 auto;
+    }
+    .brand-text {
+      min-width: 0;
+    }
+    .brand-kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      color: var(--on-surface-variant);
+      font-weight: 700;
+    }
+    .brand-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .nav {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .nav a {
+      text-decoration: none;
+      color: var(--on-surface-variant);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      border-radius: var(--radius-pill);
+      transition: .2s ease;
+      background: rgba(232,234,215,.65);
+    }
+    .nav a:hover { color: var(--primary); transform: translateY(-1px); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 84px 0 32px;
+    }
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      z-index: -1;
+      opacity: .24;
+    }
+    .hero::before {
+      width: 360px; height: 360px;
+      left: -80px; top: 10px;
+      background: var(--primary-container);
+    }
+    .hero::after {
+      width: 360px; height: 360px;
+      right: -80px; bottom: 0;
+      background: var(--secondary-container);
+    }
+    .hero-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(330px, .95fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+    .hero-copy {
+      padding: 18px 0 0;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .22em;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(40px, 6vw, 72px);
+      line-height: 1.05;
+      letter-spacing: -.05em;
+      max-width: 11ch;
+    }
+    h1 .accent {
+      color: var(--primary);
+      font-style: italic;
+    }
+    .hero-copy p.lead {
+      max-width: 62ch;
+      font-size: 18px;
+      line-height: 1.85;
+      color: var(--on-surface-variant);
+      margin: 22px 0 0;
+    }
+    .hero-actions {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn {
+      appearance: none;
+      border: 0;
+      border-radius: var(--radius-pill);
+      padding: 15px 20px;
+      font: inherit;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--gradient-primary);
+      color: #fff;
+      box-shadow: 0 16px 28px rgba(28,114,69,.2);
+    }
+    .btn-secondary {
+      background: rgba(232,234,215,.8);
+      color: var(--on-surface);
+    }
+    .btn-ghost {
+      background: rgba(255,255,255,.6);
+      color: var(--primary);
+    }
+    .hero-panel {
+      position: relative;
+      padding: 26px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(160deg, rgba(255,255,255,.88), rgba(251,250,239,.9));
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      min-height: 100%;
+    }
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: auto -70px -70px auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(165,250,249,.45);
+      filter: blur(18px);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+    .stat {
+      padding: 16px 18px;
+      border-radius: 24px;
+      background: var(--surface-lowest);
+      box-shadow: 0 10px 24px rgba(54,57,44,.06);
+    }
+    .stat strong {
+      display: block;
+      font-size: 30px;
+      letter-spacing: -.05em;
+      color: var(--primary);
+      line-height: .95;
+    }
+    .stat span {
+      display: block;
+      margin-top: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--on-surface-variant);
+    }
+    .hero-mini-card {
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+      border-radius: 28px;
+      background: var(--surface-lowest);
+      box-shadow: 0 14px 32px rgba(54,57,44,.06);
+    }
+    .hero-mini-card h3 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      letter-spacing: -.03em;
+    }
+    .hero-mini-card p {
+      margin: 0;
+      line-height: 1.75;
+      color: var(--on-surface-variant);
+      font-size: 14px;
+    }
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 18px 0 0;
+    }
+    .tag {
+      padding: 8px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      background: rgba(165,250,249,.35);
+      color: var(--secondary);
+    }
+
+    .timeline-section {
+      position: relative;
+      padding: 30px 0 110px;
+    }
+    .timeline-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      border-radius: 999px;
+      background: var(--line);
+      opacity: .5;
+      z-index: 0;
+    }
+    .floating-photo {
+      position: absolute;
+      width: 210px;
+      height: 260px;
+      padding: 10px;
+      border-radius: 34px;
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 20px 50px rgba(54,57,44,.08);
+      z-index: 1;
+      display: none;
+    }
+    .floating-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 24px;
+      display: block;
+    }
+    .photo-a { left: -10px; top: 120px; transform: rotate(-4deg); }
+    .photo-b { right: -8px; top: 760px; transform: rotate(7deg); width: 220px; height: 220px; border-radius: 28px; }
+    .photo-c { left: -24px; top: 1530px; width: 190px; height: 190px; border-radius: 999px; padding: 10px; }
+    .photo-c img { border-radius: 999px; }
+
+    .timeline {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    .timeline-item {
+      width: 100%;
+      max-width: 760px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .item-button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 0;
+      cursor: pointer;
+      width: 100%;
+      max-width: 430px;
+    }
+    .icon-node {
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow);
+      transition: .2s ease;
+      color: var(--on-surface);
+      position: relative;
+      overflow: hidden;
+    }
+    .item-button:hover .icon-node,
+    .timeline-item.active .icon-node {
+      transform: translateY(-2px) scale(1.03);
+    }
+    .node-question {
+      width: 52px;
+      height: 52px;
+      border-radius: 999px;
+      font-size: 24px;
+      background: var(--surface-lowest);
+    }
+    .node-task {
+      width: 104px;
+      height: 104px;
+      border-radius: 30px;
+      font-size: 42px;
+      background: var(--surface-lowest);
+    }
+    .node-stop {
+      width: 74px;
+      height: 74px;
+      border-radius: 26px;
+      color: white;
+      font-size: 34px;
+    }
+    .node-final {
+      width: 128px;
+      height: 128px;
+      border-radius: 34px;
+      color: white;
+      background: var(--gradient-primary);
+      font-size: 56px;
+      box-shadow: 0 22px 44px rgba(28,114,69,.24);
+    }
+    .node-label {
+      text-align: center;
+    }
+    .node-step {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      font-weight: 800;
+      color: var(--on-surface-variant);
+    }
+    .node-title {
+      margin-top: 6px;
+      font-size: 22px;
+      line-height: 1.12;
+      font-weight: 800;
+      letter-spacing: -.03em;
+    }
+    .node-subtitle {
+      margin-top: 6px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--on-surface-variant);
+    }
+
+    .content-card {
+      display: none;
+      width: min(100%, 980px);
+      margin-top: 4px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(251,250,239,.97));
+      box-shadow: 0 28px 70px rgba(54,57,44,.1);
+      overflow: hidden;
+    }
+    .timeline-item.active .content-card {
+      display: block;
+      animation: rise .26s ease;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .content-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100%;
+    }
+    .content-side {
+      padding: 28px 24px;
+      color: white;
+      background: linear-gradient(160deg, #0f3520 0%, #1c7245 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .content-side.secondary { background: linear-gradient(160deg, #0f3040 0%, #007071 100%); }
+    .content-side.tertiary { background: linear-gradient(160deg, #5d2b2e 0%, #935253 100%); }
+    .content-side::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      bottom: -60px;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.11);
+      filter: blur(4px);
+    }
+    .content-side .kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-weight: 800;
+      opacity: .78;
+    }
+    .content-side h3 {
+      margin: 14px 0 10px;
+      font-size: 30px;
+      line-height: 1.05;
+      letter-spacing: -.04em;
+    }
+    .content-side p {
+      margin: 0;
+      line-height: 1.8;
+      font-size: 14px;
+      color: rgba(255,255,255,.82);
+    }
+    .side-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+    .side-pill {
+      padding: 8px 11px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,.14);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-weight: 800;
+    }
+    .content-main {
+      padding: 30px 30px 26px;
+    }
+    .content-main h4 {
+      margin: 0 0 10px;
+      font-size: 26px;
+      letter-spacing: -.03em;
+    }
+    .content-main p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.95;
+      color: var(--on-surface-variant);
+    }
+    .section-stack {
+      display: grid;
+      gap: 16px;
+    }
+    .section-box {
+      padding: 18px 20px;
+      border-radius: 24px;
+      background: var(--surface-lowest);
+      box-shadow: 0 8px 22px rgba(54,57,44,.05);
+    }
+    .section-box h5 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: -.02em;
+    }
+    .insight-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .insight {
+      padding: 16px 18px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(161,245,188,.18), rgba(255,255,255,.84));
+    }
+    .insight.secondary {
+      background: linear-gradient(180deg, rgba(165,250,249,.2), rgba(255,255,255,.84));
+    }
+    .insight strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--primary);
+    }
+    .insight span {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--on-surface-variant);
+    }
+
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      padding: 16px;
+      border-radius: 22px;
+      background: var(--surface-low);
+      color: var(--on-surface);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 600;
+      line-height: 1.6;
+      transition: .18s ease;
+      box-shadow: 0 6px 18px rgba(54,57,44,.05);
+    }
+    .option-btn:hover { transform: translateY(-2px); }
+    .option-btn.correct { background: rgba(161,245,188,.35); }
+    .option-btn.incorrect { background: rgba(247,166,166,.34); }
+    .feedback-box {
+      display: none;
+      margin-top: 16px;
+      padding: 18px 20px;
+      border-radius: 24px;
+      line-height: 1.8;
+      font-size: 14px;
+    }
+    .feedback-box.show { display: block; }
+    .feedback-box.ok {
+      background: linear-gradient(180deg, rgba(161,245,188,.28), rgba(255,255,255,.82));
+      color: var(--success);
+    }
+    .feedback-box.ko {
+      background: linear-gradient(180deg, rgba(247,166,166,.3), rgba(255,255,255,.82));
+      color: #6d2d2f;
+    }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .check-card {
+      padding: 18px;
+      border-radius: 24px;
+      background: var(--surface-lowest);
+      box-shadow: 0 8px 22px rgba(54,57,44,.05);
+    }
+    .check-card strong {
+      display: block;
+      font-size: 14px;
+      letter-spacing: -.01em;
+      margin-bottom: 8px;
+    }
+    .check-card p {
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .final-shell {
+      display: grid;
+      gap: 18px;
+    }
+    .quiz-progress {
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(232,234,215,.9);
+      overflow: hidden;
+      margin-top: 18px;
+    }
+    .quiz-progress > div {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width .2s ease;
+    }
+    .quiz-card {
+      padding: 20px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(251,250,239,.98), rgba(255,255,255,.96));
+      box-shadow: 0 8px 22px rgba(54,57,44,.05);
+    }
+    .quiz-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+      color: var(--on-surface-variant);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+    .quiz-question {
+      font-size: 26px;
+      line-height: 1.22;
+      letter-spacing: -.03em;
+      margin: 0 0 16px;
+    }
+    .quiz-results {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+    .score-card {
+      padding: 22px;
+      border-radius: 28px;
+      background: linear-gradient(160deg, #0f3520 0%, #1c7245 100%);
+      color: white;
+    }
+    .score-card .score {
+      font-size: 74px;
+      line-height: .9;
+      letter-spacing: -.06em;
+      font-weight: 800;
+      margin: 16px 0 8px;
+    }
+    .result-card {
+      padding: 22px;
+      border-radius: 28px;
+      background: var(--surface-lowest);
+      box-shadow: 0 8px 22px rgba(54,57,44,.05);
+    }
+    .result-card h5 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+    .result-card p {
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+
+    .activity-shell {
+      margin-top: 22px;
+      padding: 20px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(232,234,215,.42), rgba(255,255,255,.9));
+    }
+    .activity-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .activity-head h5 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      letter-spacing: -.02em;
+    }
+    .activity-head p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.75;
+    }
+    .activity-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-mini {
+      appearance: none;
+      border: 0;
+      border-radius: var(--radius-pill);
+      padding: 11px 14px;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      cursor: pointer;
+      transition: .18s ease;
+    }
+    .btn-mini:hover { transform: translateY(-1px); }
+    .btn-mini.primary {
+      background: var(--gradient-primary);
+      color: #fff;
+    }
+    .btn-mini.secondary {
+      background: rgba(255,255,255,.9);
+      color: var(--primary);
+    }
+    .match-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+      gap: 16px;
+      align-items: start;
+    }
+    .match-column {
+      display: grid;
+      gap: 12px;
+    }
+    .match-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-weight: 800;
+      color: var(--on-surface-variant);
+      margin-bottom: 2px;
+    }
+    .match-slot {
+      border-radius: 24px;
+      padding: 16px 16px 14px;
+      background: var(--surface-lowest);
+      box-shadow: 0 8px 22px rgba(54,57,44,.05);
+      border: 2px dashed rgba(127,130,115,.16);
+      transition: .18s ease;
+      cursor: pointer;
+    }
+    .match-slot:hover,
+    .match-slot.selected,
+    .match-slot.dragover {
+      border-color: rgba(28,114,69,.38);
+      transform: translateY(-1px);
+    }
+    .match-slot.correct {
+      border-color: rgba(13,105,61,.34);
+      background: linear-gradient(180deg, rgba(161,245,188,.28), rgba(255,255,255,.96));
+    }
+    .match-slot.incorrect {
+      border-color: rgba(179,57,56,.24);
+      background: linear-gradient(180deg, rgba(247,166,166,.26), rgba(255,255,255,.96));
+    }
+    .match-left {
+      display: block;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      color: var(--on-surface);
+      margin-bottom: 10px;
+    }
+    .match-placeholder {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--on-surface-variant);
+      min-height: 48px;
+    }
+    .match-assigned {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 48px;
+    }
+    .match-assigned-text {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+    .clear-match {
+      flex: 0 0 auto;
+      border: 1px solid rgba(127,130,115,.18);
+      background: var(--surface-high);
+      color: var(--on-surface-variant);
+      min-width: 62px;
+      height: 30px;
+      padding: 0 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .match-bank {
+      display: grid;
+      gap: 10px;
+    }
+    .match-option {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      padding: 14px 16px;
+      border-radius: 22px;
+      background: var(--surface-lowest);
+      color: var(--on-surface);
+      cursor: grab;
+      font: inherit;
+      box-shadow: 0 8px 22px rgba(54,57,44,.05);
+      transition: .18s ease;
+      position: relative;
+    }
+    .match-option:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(54,57,44,.08);
+    }
+    .match-option.assigned {
+      opacity: .75;
+      background: linear-gradient(180deg, rgba(165,250,249,.22), rgba(255,255,255,.95));
+    }
+    .match-option .status {
+      display: inline-flex;
+      margin-top: 8px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-weight: 800;
+      color: var(--secondary);
+    }
+    .activity-feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 16px 18px;
+      border-radius: 22px;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .activity-feedback.show { display: block; }
+    .activity-feedback.ok {
+      background: linear-gradient(180deg, rgba(161,245,188,.28), rgba(255,255,255,.94));
+      color: var(--success);
+    }
+    .activity-feedback.ko {
+      background: linear-gradient(180deg, rgba(247,166,166,.25), rgba(255,255,255,.94));
+      color: #6d2d2f;
+    }
+
+    .certificate {
+      margin-top: 18px;
+      width: min(100%, 520px);
+      border-radius: 34px;
+      background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(251,250,239,.96));
+      box-shadow: 0 26px 70px rgba(54,57,44,.1);
+      overflow: hidden;
+      text-align: center;
+    }
+    .certificate-head {
+      height: 10px;
+      background: var(--gradient-primary);
+    }
+    .certificate-body {
+      padding: 34px 26px 30px;
+    }
+    .certificate-body .seal {
+      width: 78px;
+      height: 78px;
+      margin: 0 auto 18px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      color: var(--primary);
+      background: rgba(161,245,188,.26);
+    }
+    .certificate-body h3 {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: -.03em;
+    }
+    .certificate-body p {
+      margin: 12px auto 0;
+      max-width: 34ch;
+      color: var(--on-surface-variant);
+      line-height: 1.8;
+      font-size: 14px;
+    }
+    .certificate.locked .seal {
+      color: var(--on-surface-variant);
+      background: rgba(232,234,215,.8);
+    }
+
+    .fab {
+      position: fixed;
+      right: 20px;
+      bottom: 22px;
+      width: 58px;
+      height: 58px;
+      border-radius: 999px;
+      border: 0;
+      background: var(--gradient-primary);
+      color: white;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      box-shadow: 0 18px 34px rgba(28,114,69,.24);
+      z-index: 60;
+    }
+
+    @media (min-width: 1200px) {
+      .floating-photo { display: block; }
+    }
+    @media (max-width: 980px) {
+      .hero-card,
+      .content-grid,
+      .quiz-results {
+        grid-template-columns: 1fr;
+      }
+      .timeline-line {
+        left: 28px;
+      }
+      .timeline-item,
+      .item-button {
+        align-items: flex-start;
+        max-width: 100%;
+      }
+      .timeline-item {
+        padding-left: 62px;
+      }
+      .item-button {
+        flex-direction: row;
+        gap: 16px;
+      }
+      .node-label { text-align: left; }
+      .content-card { width: 100%; }
+      .option-grid,
+      .check-grid,
+      .insight-row,
+      .stats-grid,
+      .match-grid {
+        grid-template-columns: 1fr;
+      }
+      .topbar {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .nav {
+        justify-content: center;
+      }
+      h1 { max-width: none; }
+    }
+    @media (max-width: 640px) {
+      .hero { padding-top: 70px; }
+      .hero-copy p.lead { font-size: 16px; }
+      .node-task { width: 88px; height: 88px; border-radius: 26px; font-size: 36px; }
+      .node-final { width: 110px; height: 110px; font-size: 48px; }
+      .content-main,
+      .content-side,
+      .hero-panel,
+      .hero-copy,
+      .quiz-card,
+      .result-card,
+      .score-card {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .node-title { font-size: 19px; }
+      .content-side h3 { font-size: 26px; }
+      .content-main h4 { font-size: 23px; }
+      .quiz-question { font-size: 22px; }
+      .score-card .score { font-size: 58px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-wrap">
+      <div class="brand-badge"><span class="material-symbols-outlined">eco</span></div>
+      <div class="brand-text">
+        <div class="brand-kicker">Programa Airbus</div>
+        <div class="brand-title">Comunicando el Valor de la Naturaleza</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="#hero">Inicio</a>
+      <a href="#recorrido">Recorrido</a>
+      <a href="#certificacion">Certificación</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero shell" id="hero">
+      <div class="hero-card">
+        <div class="hero-copy">
+          <span class="eyebrow">Iniciativa ESG de Airbus</span>
+          <h1>Comunicando el <span class="accent">valor de la naturaleza</span></h1>
+          <p class="lead">
+            Recorrido digital en español, reconstruido para Airbus con una lógica industrial más exigente: activos naturales, alcance real de impactos, resiliencia operativa, comunicación sin greenwashing, métricas útiles, marcos globales, comunidad, gobernanza y visión futura.
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="document.getElementById('recorrido').scrollIntoView({behavior:'smooth'})">Abrir recorrido</button>
+            <button class="btn btn-secondary" onclick="openFirstNode()">Empezar por Pregunta 0</button>
+          </div>
+          <div class="tag-row">
+            <span class="tag">9 tareas</span>
+            <span class="tag">9 preguntas</span>
+            <span class="tag">2 hitos</span>
+            <span class="tag">1 test final</span>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <div class="stats-grid" id="heroStats"></div>
+          <div class="hero-mini-card">
+            <span class="eyebrow" style="margin-bottom:10px">Criterio de diseño</span>
+            <h3>Curso visual, táctil y accionable</h3>
+            <p>
+              Cada símbolo abre su contenido asociado. Las preguntas están intercaladas entre tareas, los dos hitos permanecen junto al cierre y el test final desbloquea la certificación cuando se supera el umbral definido.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="timeline-section shell" id="recorrido">
+      <div class="timeline-line"></div>
+      <div class="floating-photo photo-a"><img alt="hojas verdes iluminadas" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmwC5-p91jJ3yXCuJrOi5h2FRFbU3A8sMB9Cftz1q8JvoYJ7fW0ooGeyWjpzPzQYpjJ6bilohJvZ0WSJknH4nQ3P4PsYy6P0clcb24gKychgtO2uqaybfICnzethyI-5OMyKfoYmFbQ-l2BCblu7ZkcW4GxSQfLplWFyYojQ2q3haJFavxdhsUQQHgAwRLV4w73awuHB6yZMzw05DfeF-u3xPJsebXGFHkdsBudGsFXuweXxCEZOVenkFDSmFwVHcaY-vcX0ujBz43"></div>
+      <div class="floating-photo photo-b"><img alt="río y vegetación desde arriba" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9AVH9XycG1syAoNm1jlVhcyN8QOQG9dRhluaVJd4GsxE5NKne7F_xmizjv5xe1OJHp7lJLVTKbhssxxiBG5LUXAr3wqwgeVuBD3LWLLA5gaDnkybRs5oV5fwdQJSgOvpLlxT6mcJrNO2ag3woe-axGj7Ues5-kfzPJJ8Iv-wkK6g5TRKakNX5wKoR7BtYpHSjP8LzyM2typQSRDFuhQwrZLgOjJV_WFpqdbMkM2tadiQAH6B8jKPQcW1xU-a6w-Rl9OewbY_GW7bd"></div>
+      <div class="floating-photo photo-c"><img alt="paisaje natural" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrMKpTCcFnsxRuOuWkjstazgtG6_8MvLP2X0FL1bg1JV1rgDE2coOlKl449kgbPA_sZ68LqAjEke_L_1I-NegFbSaLzcK6HTe9HXFn-r6qn8pXU4uwJLK5RCZpxWOZutO_uHx9Kp9vluqzOZU39nBSKf_wFyBzonEinEB9MYWEJeS3zl0RoayUOLzpFVjEognkDImlx8LWcY2-1sC-Km6AEnDUg1_54IXpns0P3hRh2AO2cVMtOZ-OKxcu2N1a3Aw9bR7gUG6HGoDo"></div>
+      <div class="timeline" id="timeline"></div>
+
+      <div class="certificate locked" id="certificacion">
+        <div class="certificate-head"></div>
+        <div class="certificate-body">
+          <div class="seal"><span class="material-symbols-outlined">workspace_premium</span></div>
+          <h3 id="certificateTitle">Certificación pendiente</h3>
+          <p id="certificateText">Completa el test final con al menos un 80% para desbloquear el cierre del curso y marcar el recorrido como completado.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button class="fab" title="Volver arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <span class="material-symbols-outlined">arrow_upward</span>
+  </button>
+
+  <script>
+    const COURSE_ITEMS = [
+      {
+        id: 'q0',
+        type: 'question',
+        step: 'Pregunta 0',
+        title: 'Punto de partida',
+        subtitle: 'Por qué esto no va de imagen, sino de criterio operativo',
+        icon: 'help',
+        tone: 'tertiary',
+        nodeColor: 'var(--tertiary-container)',
+        sideTitle: 'La pregunta que ordena todo el curso',
+        sideText: 'Antes de hablar de biodiversidad en Airbus, hay que evitar un error: confundir valor ecológico con decoración verde o reputación instantánea.',
+        pills: ['Lectura crítica', 'Sin greenwashing'],
+        question: '¿Cuál es el fallo más frecuente cuando una planta industrial intenta comunicar el valor de la naturaleza?',
+        options: [
+          'Limitar el discurso a imágenes agradables sin explicar funciones ecológicas, dependencias, impactos y evidencia.',
+          'Relacionar biodiversidad con continuidad operativa, riesgos físicos y decisiones de gestión.',
+          'Explicar incertidumbres, límites del dato y necesidades de mejora.',
+          'Diferenciar entre acción piloto, acción consolidada y resultado demostrado.'
+        ],
+        correctIndex: 0,
+        explanation: 'La opción correcta es la primera. El valor de la naturaleza no se demuestra con estética, sino con función, trazabilidad, dato y capacidad de decisión.'
+      },
+      {
+        id: 't1',
+        type: 'task',
+        step: 'Tarea 1',
+        title: 'Fundamentos',
+        subtitle: 'Introducción a los activos naturales',
+        icon: 'rocket_launch',
+        tone: 'primary',
+        sideTitle: 'Qué debe entender Airbus como activo natural',
+        sideText: 'Suelos, vegetación, agua, fauna, microhábitats y procesos ecológicos dejan de ser elementos periféricos cuando condicionan riesgos, permisos, costes, reputación o resiliencia.',
+        pills: ['Base conceptual', 'Lenguaje Airbus'],
+        heading: 'Del paisaje al desempeño',
+        sections: [
+          {
+            title: 'Activos naturales, dependencias e impactos',
+            text: 'En un entorno industrial, los activos naturales no son una categoría ornamental. Son elementos biofísicos y funciones ecológicas que sostienen procesos operativos directos o indirectos: drenaje, infiltración, regulación térmica, control de erosión, calidad paisajística, aceptación social del emplazamiento y estabilidad de entornos colindantes.'
+          },
+          {
+            title: 'Qué cambia en un contexto aeroespacial',
+            text: 'El lenguaje debe elevarse desde “hay zonas verdes” hasta “existen dependencias y presiones sobre el medio que afectan continuidad, cumplimiento, costes y credibilidad”. Ese cambio de madurez evita campañas superficiales y orienta la conversación hacia gestión, evidencia y decisiones.'
+          },
+          {
+            title: 'Aplicación Airbus',
+            text: 'Hablar de valor de la naturaleza en Airbus significa conectar biodiversidad con operaciones de planta, mantenimiento, gestión de aguas, uso del suelo, iluminación, ruido, contratistas, cadena de suministro y gobernanza ambiental. La pregunta útil no es si la naturaleza está presente, sino cómo influye y qué exige.'
+          }
+        ],
+        insights: [
+          { label: 'Señal de madurez', text: 'No presentar una acción ecológica sin explicar función, alcance, indicador y propietario interno.' },
+          { label: 'Traducción operativa', text: 'Toda mejora debe tener reflejo en un proceso, una decisión o un criterio de priorización.' }
+        ]
+      },
+      {
+        id: 'q1',
+        type: 'question',
+        step: 'Pregunta 1',
+        title: 'Límite del análisis',
+        subtitle: 'Qué entra realmente en el perímetro de biodiversidad',
+        icon: 'quiz',
+        tone: 'secondary',
+        nodeColor: 'var(--secondary-container)',
+        sideTitle: 'No basta con mirar dentro de la valla',
+        sideText: 'Una lectura pobre solo observa lo visible en planta. Una lectura útil incorpora interfaces ecológicas y dependencias funcionales.',
+        pills: ['Perímetro', 'Materialidad'],
+        question: '¿Qué enfoque representa mejor un análisis de alcance de biodiversidad con madurez industrial?',
+        options: [
+          'Revisar solo jardines y zonas ajardinadas internas del site.',
+          'Evaluar únicamente especies protegidas observadas en auditorías puntuales.',
+          'Combinar operaciones internas, interfaces externas, presiones indirectas y dependencias ligadas a agua, suelo, cadena de suministro y entorno próximo.',
+          'Limitar el análisis a acciones de voluntariado ambiental.'
+        ],
+        correctIndex: 2,
+        explanation: 'La opción correcta es la tercera. El alcance útil integra dentro y fuera del perímetro físico cuando la función ecológica o el riesgo industrial lo justifican.'
+      },
+      {
+        id: 't2',
+        type: 'task',
+        step: 'Tarea 2',
+        title: 'Alcance de la biodiversidad',
+        subtitle: 'Mapeo de impactos en el ecosistema',
+        icon: 'eco',
+        tone: 'primary',
+        sideTitle: 'Del inventario a la lectura de presiones',
+        sideText: 'El mapeo relevante no enumera elementos: identifica relaciones entre presiones, sensibilidad ecológica, exposición operativa y prioridad de gestión.',
+        pills: ['Mapeo', 'Priorización'],
+        heading: 'Dónde impacta Airbus y dónde depende del sistema natural',
+        sections: [
+          {
+            title: 'Presiones directas e indirectas',
+            text: 'La biodiversidad se ve afectada por ocupación de suelo, fragmentación, compactación, escorrentía, iluminación nocturna, ruido, tráfico interno, gestión de residuos, mantenimiento de zonas verdes y decisiones de compra. A esto se suman dependencias externas asociadas a proveedores, materiales y territorios de origen.'
+          },
+          {
+            title: 'Lectura espacial y funcional',
+            text: 'El alcance debe estructurarse por zonas: núcleo operativo, áreas de transición, bordes ecológicos, conexiones con cursos de agua, superficies selladas, microhábitats y espacios potenciales de restauración. Un buen mapa distingue sensibilidad, presión y oportunidad.'
+          },
+          {
+            title: 'Qué priorizar primero',
+            text: 'Se empieza por aquello que combina tres factores: impacto plausible, relevancia para operación o cumplimiento y posibilidad real de intervención. Ese filtro evita dispersión y permite pasar del discurso general a una hoja de ruta ejecutable.'
+          }
+        ],
+        insights: [
+          { label: 'Error típico', text: 'Confundir el inventario de especies con la evaluación del sistema ecológico y sus presiones.' },
+          { label: 'Criterio útil', text: 'Toda zona priorizada debe tener un porqué ecológico y un porqué de negocio o de gestión.' }
+        ]
+      },
+      {
+        id: 'q2',
+        type: 'question',
+        step: 'Pregunta 2',
+        title: 'Prioridad de intervención',
+        subtitle: 'Dónde actuar primero cuando los recursos son limitados',
+        icon: 'live_help',
+        tone: 'primary',
+        nodeColor: 'var(--primary-container)',
+        sideTitle: 'Elegir bien es más importante que hacer mucho',
+        sideText: 'La priorización evita el activismo disperso y concentra recursos donde la mejora puede ser real y defendible.',
+        pills: ['Decisión', 'Foco'],
+        question: 'Una planta detecta tres opciones: mejorar una glorieta ornamental, restaurar un borde degradado junto a una escorrentía y lanzar una campaña visual interna. ¿Cuál debería priorizarse primero?',
+        options: [
+          'La glorieta ornamental, porque se ve más y mejora la percepción inmediata.',
+          'La campaña visual, porque requiere menos coordinación.',
+          'El borde degradado con función ecológica e hidrológica, si existe presión real y posibilidad de seguimiento.',
+          'Ninguna, porque la biodiversidad no puede gestionarse en un entorno industrial.'
+        ],
+        correctIndex: 2,
+        explanation: 'La tercera opción es la correcta. Se prioriza lo que reduce presión, mejora función ecológica y puede medirse, no lo que solo genera visibilidad.'
+      },
+      {
+        id: 't3',
+        type: 'task',
+        step: 'Tarea 3',
+        title: 'Resiliencia industrial',
+        subtitle: 'Cadenas de suministro sostenibles',
+        icon: 'factory',
+        tone: 'primary',
+        sideTitle: 'La pérdida de naturaleza no es un tema separado del negocio',
+        sideText: 'Degradación del suelo, estrés hídrico, calor, pérdida de regulación ecológica o presión en territorios de origen terminan afectando continuidad operativa y cadena de suministro.',
+        pills: ['Riesgo físico', 'Continuidad'],
+        heading: 'La naturaleza como capa de resiliencia',
+        sections: [
+          {
+            title: 'Riesgos físicos y operativos',
+            text: 'Cuando el sistema natural pierde capacidad de absorción o regulación, aumentan la vulnerabilidad a inundaciones, el estrés térmico, la erosión y la exposición de infraestructuras. En paralelo, la pérdida de biodiversidad en territorios de origen puede tensionar materias primas, logística y reputación de cadena.'
+          },
+          {
+            title: 'Resiliencia en clave Airbus',
+            text: 'Integrar biodiversidad en resiliencia implica conectar información ecológica con mantenimiento, obras, compras, planificación de site, emergencias y continuidad operativa. El objetivo no es “añadir verde”, sino reducir fragilidad sistémica.'
+          },
+          {
+            title: 'Qué decisión distingue a una organización madura',
+            text: 'La organización madura no espera a tener un incidente para actuar. Identifica dependencias críticas, define escenarios, incorpora naturaleza a su lectura de riesgo y mejora la coordinación entre medio ambiente, operaciones, real estate, compras y dirección.'
+          }
+        ],
+        insights: [
+          { label: 'Riesgo oculto', text: 'Una cadena de suministro eficiente hoy puede ser ecológicamente inestable mañana.' },
+          { label: 'Buena práctica', text: 'Cruzar riesgo ambiental con criticidad operativa antes de priorizar inversiones.' }
+        ]
+      },
+      {
+        id: 'q3',
+        type: 'question',
+        step: 'Pregunta 3',
+        title: 'Resiliencia real',
+        subtitle: 'Qué frase sí conecta biodiversidad con continuidad',
+        icon: 'help_center',
+        tone: 'tertiary',
+        nodeColor: 'var(--tertiary-container)',
+        sideTitle: 'Comunicar resiliencia exige precisión',
+        sideText: 'Hablar de resiliencia no es repetir una palabra potente: es mostrar qué fragilidad se reduce y mediante qué palancas.',
+        pills: ['Riesgo', 'Narrativa'],
+        question: '¿Qué afirmación está mejor formulada para comunicar resiliencia industrial vinculada a naturaleza?',
+        options: [
+          'Tenemos más zonas verdes, por tanto somos automáticamente resilientes.',
+          'La actuación mejora la infiltración, reduce escorrentía y baja exposición del emplazamiento ante episodios de lluvia intensa, por lo que disminuye vulnerabilidad operativa.',
+          'La biodiversidad siempre elimina todos los riesgos físicos.',
+          'La resiliencia ecológica sustituye la planificación industrial.'
+        ],
+        correctIndex: 1,
+        explanation: 'La segunda opción es la válida porque explica mecanismo, beneficio y relación con la operación sin exagerar resultados.'
+      },
+      {
+        id: 't4',
+        type: 'task',
+        step: 'Tarea 4',
+        title: 'Comunicación de valor',
+        subtitle: 'Diálogos con partes interesadas',
+        icon: 'partner_exchange',
+        tone: 'primary',
+        sideTitle: 'Cómo comunicar sin caer en greenwashing',
+        sideText: 'La comunicación madura no amplifica promesas: ordena datos, reconoce límites, traduce complejidad y adapta el lenguaje al interlocutor.',
+        pills: ['Evidencia', 'Stakeholders'],
+        heading: 'De la declaración ambiental a la argumentación verificable',
+        sections: [
+          {
+            title: 'La estructura mínima de una afirmación robusta',
+            text: 'Toda comunicación sólida debe responder, al menos, a cinco preguntas: cuál era la línea base, qué intervención se ha realizado, qué función ecológica se pretende mejorar, cómo se mide el resultado y qué incertidumbres siguen abiertas. Sin esa estructura, la afirmación es frágil.'
+          },
+          {
+            title: 'Adaptar el mensaje sin perder rigor',
+            text: 'Dirección necesita impacto sobre riesgo, reputación, continuidad y asignación de recursos. Operaciones necesita criterios claros de ejecución. Comunidad y empleados necesitan comprender utilidad real y evitar la impresión de campaña cosmética. El mensaje cambia, la evidencia no.'
+          },
+          {
+            title: 'Lo que nunca debería hacerse',
+            text: 'No debe comunicarse una actuación puntual como transformación sistémica, ni atribuir beneficios no medidos, ni ocultar que una medida está aún en fase piloto. La credibilidad se construye mostrando avance real, no magnificándolo.'
+          }
+        ],
+        insights: [
+          { label: 'Frase madura', text: 'Estamos en fase de implantación y mediremos respuesta ecológica durante el próximo ciclo anual.' },
+          { label: 'Frase inmadura', text: 'Esta actuación demuestra que ya somos un referente absoluto en biodiversidad.' }
+        ]
+      },
+      {
+        id: 'q4',
+        type: 'question',
+        step: 'Pregunta 4',
+        title: 'Prueba anti-greenwashing',
+        subtitle: 'Detectar una mala formulación antes de publicarla',
+        icon: 'psychology_alt',
+        tone: 'secondary',
+        nodeColor: 'var(--secondary-container)',
+        sideTitle: 'La credibilidad se pierde rápido',
+        sideText: 'Una mala frase puede deshacer meses de trabajo serio si promete más de lo que el dato permite sostener.',
+        pills: ['Revisión', 'Rigor'],
+        question: '¿Qué frase es la más defendible para una comunicación interna o externa?',
+        options: [
+          'La actuación convierte el site en un ecosistema plenamente restaurado.',
+          'La iniciativa demuestra un impacto positivo total y definitivo sobre la biodiversidad del entorno.',
+          'La medida busca mejorar conectividad y calidad del hábitat; el efecto se está siguiendo mediante indicadores definidos y revisión periódica.',
+          'Con esta acción queda resuelto el problema de biodiversidad del emplazamiento.'
+        ],
+        correctIndex: 2,
+        explanation: 'La tercera es la correcta porque expresa intención, mecanismo y seguimiento sin sobredimensionar el resultado.'
+      },
+      {
+        id: 't5',
+        type: 'task',
+        step: 'Tarea 5',
+        title: 'Métricas y KPIs',
+        subtitle: 'Midiendo lo invisible',
+        icon: 'monitoring',
+        tone: 'primary',
+        sideTitle: 'Sin KPI útil no hay gestión, solo relato',
+        sideText: 'La clave no es acumular indicadores, sino construir un cuadro de mando que sirva para decidir, corregir y priorizar.',
+        pills: ['KPIs', 'Seguimiento'],
+        heading: 'Cómo medir biodiversidad sin trivializarla',
+        sections: [
+          {
+            title: 'Indicadores líderes y rezagados',
+            text: 'Los KPIs líderes informan sobre capacidad de actuación: superficie restaurada con criterio, supervivencia de plantaciones, reducción de puntos de presión, porcentaje de actuaciones con seguimiento. Los rezagados muestran respuesta del sistema: uso por fauna, mejora de conectividad, condición del hábitat o evolución de bioindicadores.'
+          },
+          {
+            title: 'Qué debe evitarse',
+            text: 'Un indicador vistoso pero desconectado de la función ecológica crea una falsa sensación de progreso. Contar árboles plantados sin supervivencia, superficie sin calidad o campañas sin cambio observable introduce ruido y daña la toma de decisiones.'
+          },
+          {
+            title: 'Cuadro de mando Airbus',
+            text: 'Un cuadro de mando robusto combina presión, respuesta y gobernanza. Por ejemplo: compactación o sellado evitado, longitud de borde mejorado, supervivencia de restauración, incidentes ambientales con componente ecológico, revisiones realizadas y grado de integración en planificación y compras.'
+          }
+        ],
+        insights: [
+          { label: 'Indicador pobre', text: 'Número de acciones comunicadas.' },
+          { label: 'Indicador útil', text: 'Medida implantada + seguimiento + evidencia de respuesta o aprendizaje documentado.' }
+        ]
+      },
+      {
+        id: 'q5',
+        type: 'question',
+        step: 'Pregunta 5',
+        title: 'Elegir KPIs',
+        subtitle: 'Qué cuadro de mando sí sirve para gestionar',
+        icon: 'contact_support',
+        tone: 'primary',
+        nodeColor: 'var(--primary-container)',
+        sideTitle: 'Medir no es decorar el informe',
+        sideText: 'El buen KPI reduce ambigüedad, orienta recursos y permite corregir a tiempo.',
+        pills: ['Medición', 'Toma de decisión'],
+        question: '¿Qué combinación de KPIs sería más sólida para biodiversidad en un site industrial?',
+        options: [
+          'Número de publicaciones, likes internos y carteles instalados.',
+          'Superficie intervenida, calidad ecológica o funcional del área, supervivencia de medidas, bioindicadores y frecuencia de revisión.',
+          'Solo presupuesto anual asignado.',
+          'Número de visitas al emplazamiento por personal externo.'
+        ],
+        correctIndex: 1,
+        explanation: 'La segunda opción integra esfuerzo, calidad, respuesta ecológica y revisión, que es lo que permite gestionar de verdad.'
+      },
+      {
+        id: 't6',
+        type: 'task',
+        step: 'Tarea 6',
+        title: 'Estándares globales',
+        subtitle: 'Esenciales del marco TNFD',
+        icon: 'public',
+        tone: 'primary',
+        sideTitle: 'Usar marcos sin convertirlos en burocracia',
+        sideText: 'Los marcos globales sirven si ordenan el análisis y mejoran la trazabilidad. No sirven si se convierten en una capa documental separada de la operación.',
+        pills: ['TNFD', 'Trazabilidad'],
+        heading: 'Marcos como lógica de trabajo',
+        sections: [
+          {
+            title: 'Qué aporta una lógica tipo LEAP',
+            text: 'Primero se localizan activos, interfaces y zonas sensibles; después se evalúan dependencias e impactos; luego se analizan riesgos y oportunidades; por último se prepara la respuesta. Esa secuencia obliga a que el dato, la evidencia y la decisión estén conectados.'
+          },
+          {
+            title: 'Trazabilidad y calidad del dato',
+            text: 'Para que una divulgación sea defendible, la fuente del dato, la periodicidad, el método de captura, el responsable y los límites deben estar claros. La madurez no consiste en tener un marco citado, sino en poder reconstruir el razonamiento que llevó a una conclusión.'
+          },
+          {
+            title: 'Cómo aterrizarlo en Airbus',
+            text: 'La traducción útil es práctica: mapas de presiones, matriz de criticidad, roles propietarios, indicadores con frecuencia definida y decisiones asociadas. El marco se vuelve operativo cuando ayuda a priorizar inversión, modificar diseño o revisar gestión del site.'
+          }
+        ],
+        insights: [
+          { label: 'Uso pobre del marco', text: 'Citar TNFD sin cambiar la calidad del análisis.' },
+          { label: 'Uso maduro del marco', text: 'Emplearlo para estructurar decisiones, responsabilidades y evidencia.' }
+        ]
+      },
+      {
+        id: 'q6',
+        type: 'question',
+        step: 'Pregunta 6',
+        title: 'Divulgación útil',
+        subtitle: 'Qué tipo de información es realmente trazable',
+        icon: 'question_mark',
+        tone: 'tertiary',
+        nodeColor: 'var(--tertiary-container)',
+        sideTitle: 'No toda divulgación tiene la misma calidad',
+        sideText: 'La mejor comunicación es aquella que puede rehacerse hacia atrás: dato, método, responsable y decisión.',
+        pills: ['Disclosure', 'Data quality'],
+        question: '¿Qué elemento convierte una divulgación sobre biodiversidad en información más utilizable?',
+        options: [
+          'Una frase inspiradora acompañada de imágenes llamativas.',
+          'Un relato amplio sin límites metodológicos para que resulte más atractivo.',
+          'Un dato trazable con método, frecuencia, límites, responsable y relación clara con la decisión o el riesgo descrito.',
+          'Una promesa de mejora futura sin línea base.'
+        ],
+        correctIndex: 2,
+        explanation: 'La tercera opción aporta trazabilidad y hace que la divulgación pueda sostenerse ante revisión interna o externa.'
+      },
+      {
+        id: 't7',
+        type: 'task',
+        step: 'Tarea 7',
+        title: 'Impacto en la comunidad',
+        subtitle: 'Proyectos locales de biodiversidad',
+        icon: 'groups',
+        tone: 'primary',
+        sideTitle: 'La comunidad no es un accesorio reputacional',
+        sideText: 'Los proyectos locales solo crean valor cuando responden a una necesidad ecológica real, conectan con el territorio y pueden sostenerse más allá del gesto puntual.',
+        pills: ['Territorio', 'Credibilidad social'],
+        heading: 'Valor compartido con base ecológica',
+        sections: [
+          {
+            title: 'Qué hace valioso un proyecto local',
+            text: 'No basta con que sea visible o participativo. Debe aportar conectividad, restauración, sensibilización con contenido sólido o mejora de gestión sobre un problema concreto. La participación multiplica el valor cuando se apoya en una necesidad bien definida.'
+          },
+          {
+            title: 'Relación con licencia para operar',
+            text: 'Cuando Airbus demuestra que entiende el territorio y trabaja con rigor, mejora su legitimidad y su capacidad de diálogo. Pero eso solo ocurre si el proyecto no compite con la realidad ecológica del lugar, sino que la refuerza.'
+          },
+          {
+            title: 'Cómo elegir bien aliados',
+            text: 'La colaboración debe basarse en complementariedad: conocimiento técnico, continuidad, acceso al territorio, capacidad educativa o seguimiento. Elegir aliados solo por visibilidad genera ruido y reduce impacto.'
+          }
+        ],
+        insights: [
+          { label: 'Proyecto valioso', text: 'Aquel que suma función ecológica, utilidad social y trazabilidad de resultados.' },
+          { label: 'Proyecto débil', text: 'Aquel que se activa por calendario, visibilidad o moda sin diagnóstico previo.' }
+        ]
+      },
+      {
+        id: 'q7',
+        type: 'question',
+        step: 'Pregunta 7',
+        title: 'Elegir un proyecto local',
+        subtitle: 'Qué criterio debe mandar',
+        icon: 'quiz',
+        tone: 'secondary',
+        nodeColor: 'var(--secondary-container)',
+        sideTitle: 'La mejor idea no siempre es la más vistosa',
+        sideText: 'La selección debe responder a función ecológica, capacidad de ejecución y continuidad.',
+        pills: ['Alianzas', 'Territorio'],
+        question: '¿Qué criterio debería pesar más al seleccionar un proyecto local de biodiversidad asociado a un site Airbus?',
+        options: [
+          'Que genere muchas fotografías y eventos visibles en poco tiempo.',
+          'Que tenga coherencia ecológica territorial, posibilidad de continuidad y un método claro de seguimiento o aprendizaje.',
+          'Que exija el mínimo esfuerzo de coordinación aunque no tenga función clara.',
+          'Que permita hacer una campaña potente aunque no exista necesidad ecológica prioritaria.'
+        ],
+        correctIndex: 1,
+        explanation: 'La segunda opción es la correcta. Un proyecto local sólido se selecciona por necesidad, coherencia y capacidad de sostenerse, no por brillo comunicativo.'
+      },
+      {
+        id: 't8',
+        type: 'task',
+        step: 'Tarea 8',
+        title: 'Gobernanza',
+        subtitle: 'Toma de decisiones ética',
+        icon: 'account_balance',
+        tone: 'primary',
+        sideTitle: 'Lo que no tiene propietario no escala',
+        sideText: 'La gobernanza determina si la biodiversidad se queda en iniciativa aislada o entra en el sistema real de decisión, priorización y revisión.',
+        pills: ['Roles', 'Decisión'],
+        heading: 'Integrar biodiversidad en la arquitectura de gestión',
+        sections: [
+          {
+            title: 'Propiedad y responsabilidades',
+            text: 'Debe quedar claro quién define criterios, quién ejecuta, quién financia, quién valida el dato y quién revisa resultados. Sin esa arquitectura, las acciones quedan huérfanas y dependen en exceso del impulso individual.'
+          },
+          {
+            title: 'Dónde entra la gobernanza',
+            text: 'En el sistema de gestión ambiental, en proyectos de obras, en compras, en mantenimiento, en priorización de CAPEX/OPEX, en reporting y en revisión por dirección. La biodiversidad madura cuando entra en foros donde ya se decide de verdad.'
+          },
+          {
+            title: 'Ética aplicada',
+            text: 'Tomar decisiones éticas no significa evitar toda tensión, sino explicitar compensaciones, límites y criterios. Si una medida no puede implantarse de inmediato, debe documentarse por qué, qué riesgo implica y cuál es el siguiente paso razonable.'
+          }
+        ],
+        insights: [
+          { label: 'Gobernanza débil', text: 'Acciones puntuales sin presupuesto, responsable ni revisión de dirección.' },
+          { label: 'Gobernanza sólida', text: 'Criterio formal, roles asignados, seguimiento y escalado cuando procede.' }
+        ]
+      },
+      {
+        id: 'q8',
+        type: 'question',
+        step: 'Pregunta 8',
+        title: 'Modelo de gobernanza',
+        subtitle: 'Qué estructura evita la acción simbólica',
+        icon: 'help',
+        tone: 'primary',
+        nodeColor: 'var(--primary-container)',
+        sideTitle: 'La prueba de madurez no es el discurso, es la estructura',
+        sideText: 'Cuando la biodiversidad entra en procesos con propietario, deja de depender del entusiasmo y empieza a sostenerse.',
+        pills: ['Sistema', 'Escalado'],
+        question: '¿Qué modelo de gobernanza reduce mejor el riesgo de acciones simbólicas?',
+        options: [
+          'Una iniciativa gestionada solo por comunicación interna.',
+          'Una red informal sin roles definidos porque así es más flexible.',
+          'Un esquema con criterios técnicos, responsables claros, seguimiento periódico y conexión con dirección, operaciones y sistema ambiental.',
+          'Un calendario anual de acciones sin evaluación.'
+        ],
+        correctIndex: 2,
+        explanation: 'La tercera opción es la correcta. La gobernanza efectiva combina criterios, propiedad, revisión y conexión con el sistema real de la empresa.'
+      },
+      {
+        id: 't9',
+        type: 'task',
+        step: 'Tarea 9',
+        title: 'Perspectiva futura',
+        subtitle: 'La visión de la naturaleza para 2050',
+        icon: 'auto_awesome',
+        tone: 'primary',
+        sideTitle: 'Del cumplimiento a la anticipación',
+        sideText: 'La visión futura no consiste en prometer un estado ideal, sino en construir capacidad para decidir mejor en escenarios más complejos.',
+        pills: ['2050', 'Anticipación'],
+        heading: 'Cómo debería madurar un site industrial',
+        sections: [
+          {
+            title: 'Qué implica mirar a 2050',
+            text: 'Implica pasar de medidas aisladas a sistemas que integren biodiversidad en diseño, mantenimiento, compras, reporting, escenarios climáticos, gestión del suelo y cultura interna. La ambición útil no es grandilocuente: es acumulativa, verificable y sostenida.'
+          },
+          {
+            title: 'Capacidades que importarán más',
+            text: 'Calidad del dato, trazabilidad, lectura territorial, integración de naturaleza en riesgos, coordinación transversal, criterios de inversión y capacidad para distinguir acción real de narrativa aspiracional. Sin esas capacidades, cualquier visión futura queda vacía.'
+          },
+          {
+            title: 'Mensaje de cierre Airbus',
+            text: 'El futuro del valor de la naturaleza en Airbus no dependerá de una acción emblemática, sino de la suma de decisiones mejores, repetidas y gobernadas. La ventaja competitiva estará en la credibilidad, la coherencia y la capacidad de anticipación.'
+          }
+        ],
+        insights: [
+          { label: 'Visión madura', text: 'Menos promesa totalizante; más sistema, trazabilidad y aprendizaje continuo.' },
+          { label: 'Pregunta clave', text: '¿Qué decisión cambiaría mañana si tomáramos en serio este dato ecológico hoy?' }
+        ]
+      },
+      {
+        id: 'stop1',
+        type: 'checkpoint',
+        step: 'Parada y Verificación 1',
+        title: 'Validación de conceptos clave',
+        subtitle: 'Antes de certificar, comprueba la base técnica',
+        icon: 'task_alt',
+        tone: 'primary',
+        sideTitle: 'Qué deberías poder explicar ya',
+        sideText: 'Si estos puntos no están claros, el problema no es de memoria sino de estructura conceptual.',
+        pills: ['Chequeo', 'Conceptos'],
+        checks: [
+          ['Activos naturales', 'Puedes distinguir activo natural, dependencia, impacto, riesgo y oportunidad sin mezclar niveles de análisis.'],
+          ['Perímetro', 'Sabes por qué el alcance ecológico no se limita al interior de la valla.'],
+          ['Resiliencia', 'Relacionas biodiversidad con continuidad operativa, no solo con reputación.'],
+          ['Comunicación', 'Identificas cuándo una afirmación cruza la línea del greenwashing.']
+        ]
+      },
+      {
+        id: 'stop2',
+        type: 'checkpoint',
+        step: 'Parada y Verificación 2',
+        title: 'Implementación estratégica',
+        subtitle: 'Comprueba si puedes pasar del discurso a la gestión',
+        icon: 'fact_check',
+        tone: 'secondary',
+        sideTitle: 'Qué debería estar claro antes del cierre',
+        sideText: 'La segunda validación comprueba si puedes traducir el contenido a decisiones, indicadores, alianzas y gobernanza.',
+        pills: ['Ejecución', 'Escalado'],
+        checks: [
+          ['KPIs', 'Sabes elegir indicadores que midan función y respuesta, no solo actividad.'],
+          ['Marcos', 'Entiendes que un marco útil estructura el análisis y mejora trazabilidad.'],
+          ['Comunidad', 'Puedes justificar un proyecto local por función ecológica y continuidad.'],
+          ['Gobernanza', 'Reconoces que sin propietario, presupuesto y revisión no hay escalado real.']
+        ]
+      },
+      {
+        id: 'final',
+        type: 'final',
+        step: 'Test de certificación final',
+        title: 'Demuestra dominio aplicado',
+        subtitle: 'Evaluación final orientada a criterio, no a memorización superficial',
+        icon: 'assignment_turned_in',
+        tone: 'primary',
+        sideTitle: 'Cierre del recorrido',
+        sideText: 'El test final evalúa si el razonamiento quedó asentado. Supera el 80% y se desbloquea la certificación del curso.',
+        pills: ['10 preguntas', 'Umbral 80%']
+      }
+    ];
+
+
+    const TASK_MATCHES = {
+      t1: {
+        title: 'Prueba aplicada · Empareja el concepto con su significado',
+        instruction: 'Puedes arrastrar cada tarjeta a la izquierda o tocar primero el bloque y después la tarjeta. Todas las opciones permanecen visibles para que puedas moverlas sin perder ninguna.',
+        pairs: [
+          { left: 'Activo natural', right: 'Elemento biofísico o función ecológica que condiciona riesgo, desempeño o decisión.' },
+          { left: 'Dependencia', right: 'Necesidad operativa de mantener condiciones ecológicas o recursos naturales funcionales.' },
+          { left: 'Impacto', right: 'Presión o alteración generada por la actividad industrial sobre el sistema natural.' }
+        ]
+      },
+      t2: {
+        title: 'Prueba aplicada · Relaciona presión y lectura técnica',
+        instruction: 'Identifica qué efecto o dimensión de análisis corresponde mejor a cada presión prioritaria.',
+        pairs: [
+          { left: 'Ocupación o sellado de suelo', right: 'Reduce infiltración, fragmenta funciones ecológicas y limita restauración futura.' },
+          { left: 'Iluminación nocturna', right: 'Puede alterar orientación, ritmos biológicos y uso del espacio por fauna.' },
+          { left: 'Cadena de suministro', right: 'Extiende dependencias e impactos fuera del perímetro inmediato del site.' }
+        ]
+      },
+      t3: {
+        title: 'Prueba aplicada · Une resiliencia con efecto operativo',
+        instruction: 'La lógica correcta conecta la función ecológica con una mejora de robustez del sistema.',
+        pairs: [
+          { left: 'Suelo funcional', right: 'Mejora infiltración, reduce escorrentía y amortigua eventos intensos.' },
+          { left: 'Vegetación bien diseñada', right: 'Ayuda a regular temperatura, estabilizar bordes y reducir fragilidad del entorno.' },
+          { left: 'Microhábitats conectados', right: 'Favorecen continuidad ecológica y respuesta adaptativa del sistema local.' }
+        ]
+      },
+      t4: {
+        title: 'Prueba aplicada · Ordena una comunicación robusta',
+        instruction: 'Empareja cada bloque con el componente que no debería faltar en un mensaje técnicamente defendible.',
+        pairs: [
+          { left: 'Línea base', right: 'Describe la situación inicial antes de intervenir.' },
+          { left: 'Función ecológica esperada', right: 'Explica qué se quiere mejorar exactamente y por qué importa.' },
+          { left: 'Incertidumbre', right: 'Reconoce límites del dato, hipótesis y necesidad de seguimiento.' }
+        ]
+      },
+      t5: {
+        title: 'Prueba aplicada · Distingue KPI sólido de actividad simple',
+        instruction: 'Relaciona cada indicador con la lectura que permite hacer.',
+        pairs: [
+          { left: 'Supervivencia de restauración a 12 meses', right: 'Mide persistencia básica de la intervención en el tiempo.' },
+          { left: 'Uso del espacio por fauna o bioindicadores', right: 'Aporta evidencia de respuesta ecológica y funcionalidad.' },
+          { left: 'Número de actuaciones ejecutadas', right: 'Solo refleja actividad y necesita métricas de resultado para ser útil.' }
+        ]
+      },
+      t6: {
+        title: 'Prueba aplicada · Marco global bien usado',
+        instruction: 'Relaciona el componente del marco con la utilidad real que aporta.',
+        pairs: [
+          { left: 'Dependencias', right: 'Permiten ver dónde la operación necesita funciones de la naturaleza.' },
+          { left: 'Riesgos y oportunidades', right: 'Conectan el análisis ecológico con priorización y decisión empresarial.' },
+          { left: 'Trazabilidad', right: 'Evita que el reporting quede separado del dato y de la acción real.' }
+        ]
+      },
+      t7: {
+        title: 'Prueba aplicada · Proyecto local con sentido',
+        instruction: 'Empareja cada criterio con la razón por la que debe pesar en la decisión.',
+        pairs: [
+          { left: 'Coherencia territorial', right: 'Asegura conexión con necesidades reales del entorno y no con una idea genérica.' },
+          { left: 'Función ecológica', right: 'Permite justificar el proyecto por utilidad ambiental verificable.' },
+          { left: 'Continuidad de mantenimiento', right: 'Evita acciones vistosas que se degradan por falta de sostén operativo.' }
+        ]
+      },
+      t8: {
+        title: 'Prueba aplicada · Gobernanza que escala',
+        instruction: 'Relaciona cada pieza de gobernanza con el hueco que cubre.',
+        pairs: [
+          { left: 'Responsable asignado', right: 'Evita que la acción dependa solo de impulso personal o entusiasmo puntual.' },
+          { left: 'Presupuesto y recursos', right: 'Permiten ejecutar, mantener y corregir sin bloquear el proyecto.' },
+          { left: 'Revisión periódica', right: 'Introduce aprendizaje, corrección y conexión con dirección y sistema ambiental.' }
+        ]
+      },
+      t9: {
+        title: 'Prueba aplicada · Mirada 2050 con madurez',
+        instruction: 'Empareja cada capacidad futura con el valor que genera para Airbus.',
+        pairs: [
+          { left: 'Calidad del dato', right: 'Permite decidir con más credibilidad y menos intuición superficial.' },
+          { left: 'Integración en riesgos y CAPEX/OPEX', right: 'Convierte la biodiversidad en criterio de decisión y no en actividad paralela.' },
+          { left: 'Aprendizaje acumulativo', right: 'Sostiene una mejora continua verificable en lugar de promesas aisladas.' }
+        ]
+      }
+    };
+
+    const FINAL_TEST_QUESTIONS = [
+      {
+        id: 'ft1',
+        category: 'Fundamentos',
+        question: '¿Qué convierte a un activo natural en un tema de gestión para un site industrial?',
+        options: [
+          'Que sea visualmente atractivo.',
+          'Que influya en funciones ecológicas, exposición a riesgo o decisiones operativas.',
+          'Que aparezca en una campaña anual.',
+          'Que no requiera seguimiento.'
+        ],
+        correctIndex: 1,
+        explanation: 'La correcta es la segunda: el activo natural entra en gestión cuando afecta riesgo, desempeño o decisión.'
+      },
+      {
+        id: 'ft2',
+        category: 'Alcance',
+        question: '¿Qué enfoque mejora más la lectura de alcance de biodiversidad?',
+        options: [
+          'Mirar solo las zonas ajardinadas internas.',
+          'Analizar interfaces ecológicas, presiones, dependencias y áreas funcionalmente conectadas.',
+          'Revisar únicamente especies emblemáticas.',
+          'Limitarse a campañas de sensibilización.'
+        ],
+        correctIndex: 1,
+        explanation: 'La segunda opción incorpora presión, dependencia y conexión funcional, que es lo que da utilidad al análisis.'
+      },
+      {
+        id: 'ft3',
+        category: 'Resiliencia',
+        question: '¿Cuál de estas frases relaciona mejor biodiversidad y resiliencia?',
+        options: [
+          'La biodiversidad sustituye la gestión de riesgos.',
+          'La naturaleza reduce ciertas fragilidades del sistema, pero necesita diseño, seguimiento y coordinación.',
+          'Toda acción verde elimina de inmediato el riesgo físico.',
+          'La resiliencia depende solo del presupuesto disponible.'
+        ],
+        correctIndex: 1,
+        explanation: 'La segunda respuesta es la correcta porque evita absolutismos y explica la naturaleza como capa de resiliencia.'
+      },
+      {
+        id: 'ft4',
+        category: 'Comunicación',
+        question: '¿Qué estructura mínima debe tener una afirmación robusta sobre biodiversidad?',
+        options: [
+          'Imagen impactante y promesa ambiciosa.',
+          'Línea base, intervención, función esperada, forma de medición e incertidumbres.',
+          'Solo una frase breve para que sea más clara.',
+          'Un dato sin contexto metodológico.'
+        ],
+        correctIndex: 1,
+        explanation: 'La segunda es la correcta porque ordena evidencia y hace la afirmación verificable.'
+      },
+      {
+        id: 'ft5',
+        category: 'KPIs',
+        question: '¿Qué KPI sería más débil por sí solo?',
+        options: [
+          'Supervivencia de una restauración a 12 meses.',
+          'Uso del espacio por fauna o bioindicadores.',
+          'Número de árboles plantados sin seguimiento posterior.',
+          'Frecuencia de revisión del plan y correcciones aplicadas.'
+        ],
+        correctIndex: 2,
+        explanation: 'La tercera opción mide actividad, pero no función, calidad ni respuesta ecológica.'
+      },
+      {
+        id: 'ft6',
+        category: 'Marcos',
+        question: '¿Cuál es la utilidad real de un marco global de naturaleza bien aplicado?',
+        options: [
+          'Añadir terminología sofisticada al informe.',
+          'Estructurar el análisis, mejorar trazabilidad y conectar dato con decisión.',
+          'Sustituir el juicio técnico del equipo.',
+          'Eliminar la necesidad de priorizar.'
+        ],
+        correctIndex: 1,
+        explanation: 'La segunda opción resume el valor real del marco cuando se usa con madurez.'
+      },
+      {
+        id: 'ft7',
+        category: 'Comunidad',
+        question: '¿Qué criterio debe pesar más en un proyecto local de biodiversidad?',
+        options: [
+          'Visibilidad rápida y mucha exposición interna.',
+          'Coherencia territorial, función ecológica y continuidad.',
+          'Bajo esfuerzo aunque no tenga impacto claro.',
+          'Originalidad visual del proyecto.'
+        ],
+        correctIndex: 1,
+        explanation: 'La segunda opción asegura que el proyecto tenga utilidad real y no sea solo una activación comunicativa.'
+      },
+      {
+        id: 'ft8',
+        category: 'Gobernanza',
+        question: '¿Qué rasgo caracteriza una gobernanza sólida en biodiversidad?',
+        options: [
+          'Acciones impulsadas solo por entusiasmo individual.',
+          'Roles, criterios, seguimiento y conexión con los foros donde se decide de verdad.',
+          'Campañas frecuentes sin revisión.',
+          'Separar biodiversidad del sistema ambiental para que sea más flexible.'
+        ],
+        correctIndex: 1,
+        explanation: 'La segunda respuesta refleja una arquitectura de decisión estable y escalable.'
+      },
+      {
+        id: 'ft9',
+        category: 'Perspectiva futura',
+        question: 'Mirar a 2050 con madurez significa principalmente…',
+        options: [
+          'Prometer resultados totales sin hoja de ruta.',
+          'Acumular acciones visibles aunque no estén conectadas.',
+          'Construir capacidad de anticipación, trazabilidad y mejora acumulativa.',
+          'Esperar a que el contexto obligue a reaccionar.'
+        ],
+        correctIndex: 2,
+        explanation: 'La tercera opción representa una visión futura basada en capacidades y sistema, no en eslóganes.'
+      },
+      {
+        id: 'ft10',
+        category: 'Anti-greenwashing',
+        question: '¿Qué afirmación es más defendible?',
+        options: [
+          'La actuación resuelve definitivamente el problema de biodiversidad del site.',
+          'Se ha implantado una medida con seguimiento definido; los resultados se evaluarán y revisarán en el próximo ciclo.',
+          'La biodiversidad del entorno ya está completamente asegurada.',
+          'El proyecto demuestra liderazgo total sin necesidad de más evidencias.'
+        ],
+        correctIndex: 1,
+        explanation: 'La segunda es la válida porque no promete en exceso y reconoce la necesidad de seguimiento.'
+      }
+    ];
+
+    const state = {
+      activeItem: null,
+      answered: loadState('airbus-course-v5-answered', {}),
+      matches: loadState('airbus-course-v5-matches', {}),
+      finalTest: loadState('airbus-course-v5-final', {
+        started: false,
+        currentIndex: 0,
+        score: 0,
+        answers: [],
+        completed: false,
+        passed: false
+      })
+    };
+
+    const timeline = document.getElementById('timeline');
+    const heroStats = document.getElementById('heroStats');
+    const certificateTitle = document.getElementById('certificateTitle');
+    const certificateText = document.getElementById('certificateText');
+    const certificateCard = document.getElementById('certificacion');
+
+    function loadState(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (e) {
+        return fallback;
+      }
+    }
+
+    function shuffledIndexArray(length) {
+      const order = Array.from({ length }, (_, index) => index);
+      for (let i = order.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [order[i], order[j]] = [order[j], order[i]];
+      }
+      return order;
+    }
+
+    function saveState(key, value) {
+      try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
+    }
+
+    function openFirstNode() {
+      const first = COURSE_ITEMS[0];
+      toggleItem(first.id);
+      setTimeout(() => {
+        document.getElementById(first.id)?.scrollIntoView({behavior:'smooth', block:'center'});
+      }, 20);
+    }
+    window.openFirstNode = openFirstNode;
+
+    function getToneClass(tone) {
+      if (tone === 'secondary') return 'secondary';
+      if (tone === 'tertiary') return 'tertiary';
+      return 'primary';
+    }
+
+    function renderStats() {
+      const qItems = COURSE_ITEMS.filter(item => item.type === 'question');
+      const answeredCount = qItems.filter(item => state.answered[item.id]).length;
+      const totalQuestions = qItems.length;
+      const completedTasks = COURSE_ITEMS.filter(item => item.type === 'task' && state.answered['open-' + item.id]).length;
+      heroStats.innerHTML = `
+        <div class="stat"><strong>${COURSE_ITEMS.filter(i => i.type === 'task').length}</strong><span>Tareas técnicas</span></div>
+        <div class="stat"><strong>${totalQuestions}</strong><span>Preguntas intercaladas</span></div>
+        <div class="stat"><strong>${answeredCount}/${totalQuestions}</strong><span>Preguntas respondidas</span></div>
+        <div class="stat"><strong>${state.finalTest.completed ? (state.finalTest.score * 10) + '%' : '—'}</strong><span>Resultado final</span></div>
+      `;
+    }
+
+    function renderTimeline() {
+      timeline.innerHTML = COURSE_ITEMS.map(item => {
+        const isActive = state.activeItem === item.id;
+        const nodeClass = item.type === 'task' ? 'node-task' : item.type === 'final' ? 'node-final' : item.type === 'checkpoint' ? 'node-stop' : 'node-question';
+        const nodeStyle = item.type === 'question'
+          ? `background:${item.nodeColor || 'var(--surface-lowest)'};`
+          : item.type === 'checkpoint'
+            ? (item.tone === 'secondary' ? 'background:var(--gradient-secondary);' : 'background:var(--gradient-primary);')
+            : '';
+        return `
+          <article class="timeline-item ${isActive ? 'active' : ''}" id="${item.id}">
+            <button class="item-button" type="button" onclick="toggleItem('${item.id}')">
+              <div class="icon-node ${nodeClass}" style="${nodeStyle}">
+                <span class="material-symbols-outlined">${item.icon}</span>
+              </div>
+              <div class="node-label">
+                <div class="node-step">${item.step}</div>
+                ${item.type === 'final'
+                  ? `<div class="node-title">${item.step}</div><div class="node-subtitle">${item.subtitle}</div>`
+                  : `<div class="node-title">${item.type === 'task' ? item.title : item.title}</div><div class="node-subtitle">${item.subtitle}</div>`}
+              </div>
+            </button>
+            <div class="content-card">${renderItemContent(item)}</div>
+          </article>
+        `;
+      }).join('');
+      bindDynamicEvents();
+    }
+
+    function renderTaskContent(item) {
+      return `
+        <div class="content-grid">
+          <aside class="content-side ${getToneClass(item.tone)}">
+            <div class="kicker">${item.step}</div>
+            <h3>${item.sideTitle}</h3>
+            <p>${item.sideText}</p>
+            <div class="side-pills">${item.pills.map(p => `<span class="side-pill">${p}</span>`).join('')}</div>
+          </aside>
+          <div class="content-main">
+            <h4>${item.heading}</h4>
+            <div class="section-stack">
+              ${item.sections.map(section => `
+                <section class="section-box">
+                  <h5>${section.title}</h5>
+                  <p>${section.text}</p>
+                </section>
+              `).join('')}
+            </div>
+            <div class="insight-row">
+              ${item.insights.map((insight, idx) => `
+                <div class="insight ${idx % 2 ? 'secondary' : ''}">
+                  <strong>${insight.label}</strong>
+                  <span>${insight.text}</span>
+                </div>
+              `).join('')}
+            </div>
+            ${renderTaskActivity(item)}
+          </div>
+        </div>
+      `;
+    }
+
+
+    function renderTaskActivity(item) {
+      const activity = TASK_MATCHES[item.id];
+      if (!activity) return '';
+      const matchState = getMatchState(item.id);
+      const correctCount = getMatchCorrectCount(item.id);
+      const total = activity.pairs.length;
+      const allAssigned = Object.keys(matchState.assignments).length === total;
+      const checked = !!matchState.checked;
+      const missing = Number(matchState.missing || 0);
+
+      return `
+        <div class="activity-shell">
+          <div class="activity-head">
+            <div>
+              <h5>${activity.title}</h5>
+              <p>${activity.instruction}</p>
+            </div>
+            <div class="activity-actions">
+              <button type="button" class="btn-mini primary" data-match-check="${item.id}">Comprobar</button>
+              <button type="button" class="btn-mini secondary" data-match-reset="${item.id}">Reiniciar</button>
+            </div>
+          </div>
+          <div class="match-grid">
+            <div class="match-column">
+              <div class="match-label">Bloques que debes completar</div>
+              ${activity.pairs.map((pair, leftIndex) => {
+                const assignedId = matchState.assignments[leftIndex];
+                const assignedPair = typeof assignedId === 'number' ? activity.pairs[assignedId] : null;
+                const selected = matchState.selectedLeft === leftIndex ? 'selected' : '';
+                let evaluation = '';
+                if (checked) {
+                  evaluation = assignedId === leftIndex ? 'correct' : 'incorrect';
+                }
+                return `
+                  <div
+                    class="match-slot ${selected} ${evaluation}"
+                    data-match-slot="${item.id}"
+                    data-left-index="${leftIndex}"
+                  >
+                    <strong class="match-left">${pair.left}</strong>
+                    ${assignedPair
+                      ? `<div class="match-assigned">
+                           <div class="match-assigned-text">${assignedPair.right}</div>
+                           <button type="button" class="clear-match" data-match-clear="${item.id}" data-left-index="${leftIndex}" aria-label="Quitar relación">Quitar</button>
+                         </div>`
+                      : `<div class="match-placeholder">Arrastra aquí una tarjeta de la derecha o toca primero este bloque y después la tarjeta correcta.</div>`}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+            <div class="match-column">
+              <div class="match-label">Tarjetas visibles, movibles y en orden aleatorio · solo se valida al completar todas</div>
+              <div class="match-bank">
+                ${matchState.optionOrder.map(optionId => {
+                  const pair = activity.pairs[optionId];
+                  const assignedLeft = findAssignedLeft(item.id, optionId);
+                  return `
+                    <button
+                      type="button"
+                      class="match-option ${assignedLeft !== null ? 'assigned' : ''}"
+                      draggable="true"
+                      data-match-option="${item.id}"
+                      data-option-id="${optionId}"
+                    >
+                      ${pair.right}
+                      ${assignedLeft !== null ? `<span class="status">Asignada a ${activity.pairs[assignedLeft].left}</span>` : ''}
+                    </button>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+          <div class="activity-feedback ${(checked ? 'show ' + (correctCount === total ? 'ok' : 'ko') : (missing > 0 ? 'show info' : ''))}" id="match-feedback-${item.id}">
+            ${checked
+              ? correctCount === total
+                ? `Emparejamiento correcto. Has conectado las ${total} relaciones clave de esta tarea.`
+                : `Has acertado ${correctCount} de ${total}. Revisa los bloques marcados y vuelve a mover las tarjetas hasta que cada relación refleje la lógica técnica correcta.`
+              : missing > 0
+                ? `Aún faltan ${missing} ${missing === 1 ? 'relación' : 'relaciones'} por completar. No se validará como incorrecto hasta que estén las ${total} conexiones asignadas.`
+                : allAssigned
+                  ? 'Ya tienes todos los bloques completados. Pulsa “Comprobar” para validar la lógica.'
+                  : 'Todavía faltan relaciones por completar. Todas las opciones permanecen visibles para que puedas recolocarlas.'}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderQuestionContent(item) {
+      const answerState = state.answered[item.id];
+      const correct = typeof answerState === 'number' ? answerState === item.correctIndex : null;
+      return `
+        <div class="content-grid">
+          <aside class="content-side ${getToneClass(item.tone)}">
+            <div class="kicker">${item.step}</div>
+            <h3>${item.sideTitle}</h3>
+            <p>${item.sideText}</p>
+            <div class="side-pills">${item.pills.map(p => `<span class="side-pill">${p}</span>`).join('')}</div>
+          </aside>
+          <div class="content-main">
+            <h4>${item.question}</h4>
+            <p>Selecciona la opción más sólida desde un punto de vista técnico y comunicativo.</p>
+            <div class="option-grid" data-question-wrap="${item.id}">
+              ${item.options.map((option, index) => {
+                let cls = '';
+                if (typeof answerState === 'number') {
+                  if (index === item.correctIndex) cls = 'correct';
+                  else if (index === answerState) cls = 'incorrect';
+                }
+                return `<button type="button" class="option-btn ${cls}" data-question="${item.id}" data-index="${index}">${option}</button>`;
+              }).join('')}
+            </div>
+            <div class="feedback-box ${typeof answerState === 'number' ? 'show ' + (correct ? 'ok' : 'ko') : ''}" id="feedback-${item.id}">
+              ${typeof answerState === 'number'
+                ? `<strong>${correct ? 'Respuesta correcta.' : 'Respuesta incorrecta.'}</strong> ${item.explanation}`
+                : ''}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCheckpointContent(item) {
+      return `
+        <div class="content-grid">
+          <aside class="content-side ${getToneClass(item.tone)}">
+            <div class="kicker">${item.step}</div>
+            <h3>${item.sideTitle}</h3>
+            <p>${item.sideText}</p>
+            <div class="side-pills">${item.pills.map(p => `<span class="side-pill">${p}</span>`).join('')}</div>
+          </aside>
+          <div class="content-main">
+            <h4>${item.title}</h4>
+            <p>${item.subtitle}</p>
+            <div class="check-grid">
+              ${item.checks.map(([title, text]) => `
+                <div class="check-card">
+                  <strong>${title}</strong>
+                  <p>${text}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderFinalContent(item) {
+      const final = state.finalTest;
+      const question = FINAL_TEST_QUESTIONS[final.currentIndex];
+      let mainContent = '';
+
+      if (!final.started || (!final.completed && !question && !final.answers.length)) {
+        mainContent = `
+          <div class="final-shell">
+            <div class="quiz-card">
+              <h4>Listo para certificar</h4>
+              <p>El test contiene 10 preguntas con foco en criterio industrial, comunicación rigurosa y capacidad de priorización. Se supera con un 80% o más.</p>
+              <div class="hero-actions" style="margin-top:18px">
+                <button class="btn btn-primary" type="button" id="startFinalTest">Iniciar test final</button>
+                <button class="btn btn-secondary" type="button" id="resetFinalTest">Reiniciar historial</button>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (!final.completed && question) {
+        const progress = ((final.currentIndex) / FINAL_TEST_QUESTIONS.length) * 100;
+        mainContent = `
+          <div class="final-shell">
+            <div class="quiz-card">
+              <div class="quiz-meta">
+                <span>Pregunta ${final.currentIndex + 1} / ${FINAL_TEST_QUESTIONS.length}</span>
+                <span>${question.category}</span>
+              </div>
+              <div class="quiz-progress"><div style="width:${progress}%"></div></div>
+              <h4 class="quiz-question">${question.question}</h4>
+              <div class="option-grid">
+                ${question.options.map((option, index) => `<button type="button" class="option-btn" data-final-index="${index}">${option}</button>`).join('')}
+              </div>
+              <div class="feedback-box" id="finalFeedback"></div>
+            </div>
+          </div>
+        `;
+      } else {
+        const percent = final.score * 10;
+        const weakCategories = getWeakCategories(final.answers);
+        mainContent = `
+          <div class="final-shell">
+            <div class="quiz-results">
+              <div class="score-card">
+                <div class="kicker" style="opacity:.82">Resultado final</div>
+                <div class="score">${percent}%</div>
+                <p style="color:rgba(255,255,255,.82);line-height:1.8;margin:0">
+                  ${final.passed
+                    ? 'Has superado el umbral de certificación. El recorrido queda completado.'
+                    : 'Aún no has alcanzado el umbral de certificación. Repite el test y consolida los bloques con más fricción.'}
+                </p>
+              </div>
+              <div class="result-card">
+                <h5>Lectura del resultado</h5>
+                <p>${final.passed
+                  ? 'El resultado indica una comprensión sólida de alcance, riesgo, comunicación y gobernanza aplicada a biodiversidad en entorno industrial.'
+                  : 'El resultado muestra base suficiente para continuar, pero todavía conviene reforzar el vínculo entre dato, decisión, KPI y comunicación técnica.'}
+                </p>
+                <h5 style="margin-top:18px">Temas a vigilar</h5>
+                <p>${weakCategories.length ? weakCategories.join(' · ') : 'Sin debilidades claras detectadas.'}</p>
+                <div class="hero-actions" style="margin-top:16px">
+                  <button class="btn btn-primary" type="button" id="retryFinalTest">Repetir test</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="content-grid">
+          <aside class="content-side ${getToneClass(item.tone)}">
+            <div class="kicker">${item.step}</div>
+            <h3>${item.sideTitle}</h3>
+            <p>${item.sideText}</p>
+            <div class="side-pills">${item.pills.map(p => `<span class="side-pill">${p}</span>`).join('')}</div>
+          </aside>
+          <div class="content-main">${mainContent}</div>
+        </div>
+      `;
+    }
+
+    function renderItemContent(item) {
+      if (item.type === 'task') return renderTaskContent(item);
+      if (item.type === 'question') return renderQuestionContent(item);
+      if (item.type === 'checkpoint') return renderCheckpointContent(item);
+      return renderFinalContent(item);
+    }
+
+    function bindDynamicEvents() {
+      document.querySelectorAll('[data-question]').forEach(btn => {
+        btn.addEventListener('click', () => answerInlineQuestion(btn.dataset.question, Number(btn.dataset.index)));
+      });
+      document.querySelectorAll('[data-match-slot]').forEach(slot => {
+        slot.addEventListener('click', () => selectMatchSlot(slot.dataset.matchSlot, Number(slot.dataset.leftIndex)));
+        slot.addEventListener('dragover', event => {
+          event.preventDefault();
+          slot.classList.add('dragover');
+        });
+        slot.addEventListener('dragleave', () => slot.classList.remove('dragover'));
+        slot.addEventListener('drop', event => {
+          event.preventDefault();
+          slot.classList.remove('dragover');
+          const optionId = Number(event.dataTransfer.getData('text/plain'));
+          if (!Number.isNaN(optionId)) assignMatch(slot.dataset.matchSlot, Number(slot.dataset.leftIndex), optionId);
+        });
+      });
+      document.querySelectorAll('[data-match-option]').forEach(option => {
+        option.addEventListener('click', () => handleMatchOptionClick(option.dataset.matchOption, Number(option.dataset.optionId)));
+        option.addEventListener('dragstart', event => {
+          event.dataTransfer.setData('text/plain', option.dataset.optionId);
+          event.dataTransfer.effectAllowed = 'move';
+        });
+      });
+      document.querySelectorAll('[data-match-clear]').forEach(button => {
+        button.addEventListener('click', event => {
+          event.stopPropagation();
+          clearMatch(button.dataset.matchClear, Number(button.dataset.leftIndex));
+        });
+      });
+      document.querySelectorAll('[data-match-check]').forEach(button => {
+        button.addEventListener('click', () => checkMatchActivity(button.dataset.matchCheck));
+      });
+      document.querySelectorAll('[data-match-reset]').forEach(button => {
+        button.addEventListener('click', () => resetMatchActivity(button.dataset.matchReset));
+      });
+      const start = document.getElementById('startFinalTest');
+      if (start) start.addEventListener('click', startFinalTest);
+      const retry = document.getElementById('retryFinalTest');
+      if (retry) retry.addEventListener('click', startFinalTest);
+      const reset = document.getElementById('resetFinalTest');
+      if (reset) reset.addEventListener('click', resetFinalTest);
+      document.querySelectorAll('[data-final-index]').forEach(btn => {
+        btn.addEventListener('click', () => answerFinalQuestion(Number(btn.dataset.finalIndex)));
+      });
+    }
+
+    function toggleItem(id) {
+      state.activeItem = state.activeItem === id ? null : id;
+      const item = COURSE_ITEMS.find(x => x.id === id);
+      if (item && item.type === 'task') state.answered['open-' + item.id] = true;
+      saveState('airbus-course-v5-answered', state.answered);
+      render();
+    }
+    window.toggleItem = toggleItem;
+
+
+    function getMatchState(taskId) {
+      const totalPairs = TASK_MATCHES[taskId].pairs.length;
+      if (!state.matches[taskId]) {
+        state.matches[taskId] = {
+          assignments: {},
+          selectedLeft: null,
+          checked: false,
+          missing: 0,
+          optionOrder: shuffledIndexArray(totalPairs)
+        };
+      } else if (!Array.isArray(state.matches[taskId].optionOrder) || state.matches[taskId].optionOrder.length !== totalPairs) {
+        state.matches[taskId].optionOrder = shuffledIndexArray(totalPairs);
+      }
+      return state.matches[taskId];
+    }
+
+    function findAssignedLeft(taskId, optionId) {
+      const matchState = getMatchState(taskId);
+      const entry = Object.entries(matchState.assignments).find(([, assigned]) => Number(assigned) === Number(optionId));
+      return entry ? Number(entry[0]) : null;
+    }
+
+    function saveMatches() {
+      saveState('airbus-course-v5-matches', state.matches);
+    }
+
+    function selectMatchSlot(taskId, leftIndex) {
+      const matchState = getMatchState(taskId);
+      matchState.selectedLeft = leftIndex;
+      saveMatches();
+      state.activeItem = taskId;
+      render();
+    }
+
+    function handleMatchOptionClick(taskId, optionId) {
+      const matchState = getMatchState(taskId);
+      const leftKeys = Object.keys(matchState.assignments).map(Number);
+      const firstEmpty = TASK_MATCHES[taskId].pairs.findIndex((_, idx) => !leftKeys.includes(idx));
+      const leftIndex = matchState.selectedLeft !== null ? matchState.selectedLeft : (firstEmpty !== -1 ? firstEmpty : 0);
+      assignMatch(taskId, leftIndex, optionId);
+    }
+
+    function assignMatch(taskId, leftIndex, optionId) {
+      const matchState = getMatchState(taskId);
+      const currentLeft = findAssignedLeft(taskId, optionId);
+      if (currentLeft !== null) delete matchState.assignments[currentLeft];
+      matchState.assignments[leftIndex] = optionId;
+      matchState.selectedLeft = null;
+      matchState.checked = false;
+      matchState.missing = 0;
+      saveMatches();
+      state.activeItem = taskId;
+      render();
+    }
+
+    function clearMatch(taskId, leftIndex) {
+      const matchState = getMatchState(taskId);
+      delete matchState.assignments[leftIndex];
+      matchState.checked = false;
+      matchState.missing = 0;
+      saveMatches();
+      state.activeItem = taskId;
+      render();
+    }
+
+    function getMatchCorrectCount(taskId) {
+      const activity = TASK_MATCHES[taskId];
+      const matchState = getMatchState(taskId);
+      return activity.pairs.reduce((sum, _, idx) => sum + (Number(matchState.assignments[idx]) === idx ? 1 : 0), 0);
+    }
+
+    function checkMatchActivity(taskId) {
+      const activity = TASK_MATCHES[taskId];
+      const matchState = getMatchState(taskId);
+      const missing = activity.pairs.length - Object.keys(matchState.assignments).length;
+      if (missing > 0) {
+        matchState.checked = false;
+        matchState.missing = missing;
+        saveMatches();
+        state.activeItem = taskId;
+        render();
+        return;
+      }
+      matchState.missing = 0;
+      matchState.checked = true;
+      saveMatches();
+      state.activeItem = taskId;
+      render();
+    }
+
+    function resetMatchActivity(taskId) {
+      state.matches[taskId] = {
+        assignments: {},
+        selectedLeft: null,
+        checked: false,
+        missing: 0,
+        optionOrder: shuffledIndexArray(TASK_MATCHES[taskId].pairs.length)
+      };
+      saveMatches();
+      state.activeItem = taskId;
+      render();
+    }
+
+    function answerInlineQuestion(id, selectedIndex) {
+      const item = COURSE_ITEMS.find(x => x.id === id);
+      if (!item) return;
+      state.answered[id] = selectedIndex;
+      saveState('airbus-course-v5-answered', state.answered);
+      render();
+      state.activeItem = id;
+      render();
+    }
+
+    function startFinalTest() {
+      state.finalTest = {
+        started: true,
+        currentIndex: 0,
+        score: 0,
+        answers: [],
+        completed: false,
+        passed: false
+      };
+      saveState('airbus-course-v5-final', state.finalTest);
+      state.activeItem = 'final';
+      render();
+    }
+
+    function resetFinalTest() {
+      state.finalTest = {
+        started: false,
+        currentIndex: 0,
+        score: 0,
+        answers: [],
+        completed: false,
+        passed: false
+      };
+      saveState('airbus-course-v5-final', state.finalTest);
+      render();
+    }
+
+    function answerFinalQuestion(selectedIndex) {
+      const final = state.finalTest;
+      const question = FINAL_TEST_QUESTIONS[final.currentIndex];
+      if (!question || final.completed) return;
+      const isCorrect = selectedIndex === question.correctIndex;
+      final.answers.push({ category: question.category, correct: isCorrect });
+      if (isCorrect) final.score += 1;
+      final.currentIndex += 1;
+      if (final.currentIndex >= FINAL_TEST_QUESTIONS.length) {
+        final.completed = true;
+        final.passed = final.score / FINAL_TEST_QUESTIONS.length >= 0.8;
+      }
+      saveState('airbus-course-v5-final', final);
+      render();
+    }
+
+    function getWeakCategories(answers) {
+      const groups = {};
+      answers.forEach(a => {
+        if (!groups[a.category]) groups[a.category] = { total: 0, ok: 0 };
+        groups[a.category].total += 1;
+        if (a.correct) groups[a.category].ok += 1;
+      });
+      return Object.entries(groups)
+        .map(([category, data]) => ({ category, ratio: data.total ? data.ok / data.total : 0 }))
+        .filter(entry => entry.ratio < 1)
+        .sort((a, b) => a.ratio - b.ratio)
+        .slice(0, 3)
+        .map(entry => entry.category);
+    }
+
+    function updateCertificate() {
+      if (state.finalTest.completed && state.finalTest.passed) {
+        certificateCard.classList.remove('locked');
+        certificateTitle.textContent = 'Curso completado';
+        certificateText.textContent = 'Has superado el test final. El recorrido queda validado como completado y la certificación interna del curso queda desbloqueada.';
+      } else if (state.finalTest.completed) {
+        certificateCard.classList.add('locked');
+        certificateTitle.textContent = 'Certificación no alcanzada todavía';
+        certificateText.textContent = 'Has terminado el test, pero aún no se ha superado el umbral del 80%. Repite la evaluación tras revisar los bloques con más dificultad.';
+      } else {
+        certificateCard.classList.add('locked');
+        certificateTitle.textContent = 'Certificación pendiente';
+        certificateText.textContent = 'Completa el test final con al menos un 80% para desbloquear el cierre del curso y marcar el recorrido como completado.';
+      }
+    }
+
+    function render() {
+      renderStats();
+      renderTimeline();
+      updateCertificate();
+      saveState('airbus-course-v5-final', state.finalTest);
+      saveState('airbus-course-v5-answered', state.answered);
+      saveState('airbus-course-v5-matches', state.matches);
+    }
+
+    render();
+  </script>
+</body>
+</html>
