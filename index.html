@@ -302,7 +302,7 @@
         id: 1,
         title: "La sostenibilidad como sistema de decisión",
         subtitle: "Supera los indicadores aislados y comprende cómo interactúan las consecuencias ambientales, operativas, sociales y económicas.",
-        duration: "30 min",
+
         objectives: [
           "Distinguir la sostenibilidad de una simple colección de iniciativas ambientales.",
           "Utilizar impactos, dependencias, riesgos y oportunidades como cuatro perspectivas complementarias.",
@@ -360,7 +360,7 @@
         id: 2,
         title: "Pensamiento de ciclo de vida para aeronaves y servicios",
         subtitle: "Comprende dónde se producen los impactos desde el diseño y el aprovisionamiento hasta la operación, el soporte y el final de vida.",
-        duration: "35 min",
+
         objectives: [
           "Representar las principales etapas del ciclo de vida de una aeronave o servicio.",
           "Explicar con claridad la unidad funcional, la línea base, la calidad del dato y el traslado de cargas.",
@@ -418,7 +418,7 @@
         id: 3,
         title: "Circularidad, mantenimiento y valor conservado",
         subtitle: "Conecta reparación, reutilización, modularidad y gestión de la obsolescencia con la aeronavegabilidad y la capacidad a largo plazo.",
-        duration: "30 min",
+
         objectives: [
           "Aplicar la jerarquía de conservación de valor, sin tratar el reciclaje como estrategia circular predeterminada.",
           "Reconocer las condiciones técnicas y documentales necesarias para reutilizar y reparar con seguridad.",
@@ -476,7 +476,7 @@
         id: 4,
         title: "Materiales responsables y evidencia de la cadena de suministro",
         subtitle: "Convierte las declaraciones de proveedores en información trazable que apoye decisiones de ingeniería y compras.",
-        duration: "35 min",
+
         objectives: [
           "Diferenciar una declaración de proveedor de evidencia verificable de cadena de custodia.",
           "Aplicar diligencia debida proporcional al riesgo material, geográfico y del proveedor.",
@@ -534,7 +534,7 @@
         id: 5,
         title: "Naturaleza, territorio y convivencia operativa",
         subtitle: "Comprende las dependencias ecológicas y gestiona las interacciones con fauna, hábitats y suelo sin debilitar la seguridad operacional.",
-        duration: "35 min",
+
         objectives: [
           "Explicar por qué la diversidad biológica importa para la resiliencia operativa y la gestión del territorio.",
           "Aplicar la jerarquía de mitigación a decisiones sobre bases e infraestructuras.",
@@ -592,7 +592,7 @@
         id: 6,
         title: "Operaciones In-Service, disponibilidad y resiliencia",
         subtitle: "Analiza cuándo la disponibilidad para la misión y la sostenibilidad se refuerzan y cuándo siguen existiendo compensaciones que deben transparentarse.",
-        duration: "35 min",
+
         objectives: [
           "Relacionar fiabilidad, reparación y diseño logístico con el desempeño de recursos a largo plazo.",
           "Diferenciar las excepciones de emergencia de una planificación rutinaria deficiente.",
@@ -650,7 +650,7 @@
         id: 7,
         title: "Medición, gobernanza y comunicación creíble",
         subtitle: "Construye afirmaciones a partir de límites claros, controles responsables y evidencia capaz de superar una revisión.",
-        duration: "35 min",
+
         objectives: [
           "Seleccionar indicadores que conecten actuación, resultado y relevancia para la decisión.",
           "Reconocer formas frecuentes de comunicación engañosa sobre sostenibilidad.",
@@ -708,7 +708,7 @@
         id: 8,
         title: "Laboratorio integrado de decisiones aeronáuticas",
         subtitle: "Combina las perspectivas del curso en una recomendación estructurada para una decisión realista de ingeniería y soporte.",
-        duration: "40 min",
+
         objectives: [
           "Aplicar un marco de decisión reproducible de seis pasos.",
           "Separar las restricciones innegociables de las variables que pueden optimizarse.",
@@ -828,7 +828,6 @@
                 <div class="fact"><strong>8</strong><span>módulos teóricos</span></div>
                 <div class="fact"><strong>8</strong><span>decisiones aeronáuticas</span></div>
                 <div class="fact"><strong>10</strong><span>preguntas finales</span></div>
-                <div class="fact"><strong>4 h</strong><span>tiempo estimado</span></div>
               </div>
             </div>
           </section>
@@ -865,7 +864,7 @@
                     <span class="route-status ${cls}">${status}</span>
                     <h3>Parada ${m.id} · ${escapeHtml(m.title)}</h3>
                     <p>${escapeHtml(m.subtitle)}</p>
-                    <div class="module-meta"><span class="pill">${escapeHtml(m.duration)}</span><span class="pill">Teoría + decisión + comprobación</span></div>
+                    <div class="module-meta"><span class="pill">Teoría + decisión + comprobación</span></div>
                     <button class="btn ${current?"btn-primary":""}" type="button" ${unlocked?`data-go="module-${m.id}"`:"disabled"}>${complete?"Revisar parada":current?"Entrar en la parada actual":"Bloqueada"}</button>
                   </article>
                   <div class="route-marker ${cls}" aria-hidden="true">${complete?"✓":current?String(m.id).padStart(2,"0"):"🔒"}</div>
@@ -901,7 +900,7 @@
       document.getElementById("main").innerHTML = `
         <div class="container module-shell">
           <div class="module-top">
-            <div><span class="eyebrow">Módulo ${m.id} · ${escapeHtml(m.duration)}</span><h1>${escapeHtml(m.title)}</h1><p class="module-lead">${escapeHtml(m.subtitle)}</p></div>
+            <div><span class="eyebrow">Módulo ${m.id}</span><h1>${escapeHtml(m.title)}</h1><p class="module-lead">${escapeHtml(m.subtitle)}</p></div>
             <button class="btn" type="button" data-go="overview">Ruta del curso</button>
           </div>
           <div class="module-body">
