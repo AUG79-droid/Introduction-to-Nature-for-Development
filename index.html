@@ -945,7 +945,7 @@
         if (!casePassed || !checkPassed) return;
         if (!moduleComplete(id)) { state.completed.push(id); recentlyCompletada = id; }
         state.completed = [...new Set(state.completed)].sort((a,b)=>a-b); saveState();
-        go("overview");
+        go(id === MODULES.length ? "assessment" : `module-${id+1}`);
       });
     }
 
