@@ -859,7 +859,7 @@
                 const status = complete ? "Completada" : current ? "Parada actual" : "Bloqueada — completa la parada anterior";
                 const cls = complete ? "complete" : current ? "current" : "locked";
                 const visual = ROUTE_VISUALS[m.id];
-                return `<div class="route-stage ${m.id%2?"side-left":"side-right"}">
+                return `<div id="route-stage-${m.id}" class="route-stage ${m.id%2?"side-left":"side-right"}">
                   <article class="route-card ${cls}">
                     <span class="route-status ${cls}">${status}</span>
                     <h3>Parada ${m.id} · ${escapeHtml(m.title)}</h3>
@@ -870,7 +870,7 @@
                   <div class="route-marker ${cls}" aria-hidden="true">${complete?"✓":current?String(m.id).padStart(2,"0"):"🔒"}</div>
                 </div>${visual?`<figure class="route-visual"><img src="${visual.src}" alt="${escapeHtml(visual.alt)}" loading="lazy" decoding="async"><figcaption><strong>${escapeHtml(visual.title)}</strong>${escapeHtml(visual.caption)}</figcaption></figure>`:""}`;
               }).join("")}
-              <div class="route-stage route-destination side-left">
+              <div id="route-stage-final" class="route-stage route-destination side-left">
                 <article class="route-card ${state.completed.length===MODULES.length?(state.passed?"complete":"current"):"locked"}">
                   <span class="route-status ${state.passed?"complete":state.completed.length===MODULES.length?"current":"locked"}">${state.passed?"Recorrido completado":state.completed.length===MODULES.length?"Destino final desbloqueado":"Bloqueada — completa todas las paradas"}</span>
                   <h3>Destino final · Evaluación integrada</h3>
@@ -885,8 +885,14 @@
 
           <div class="notice"><strong>Uso de los escenarios:</strong> Las referencias al A400M y Eurofighter son contextos formativos ilustrativos. El curso no sustituye datos técnicos aprobados, decisiones de aeronavegabilidad, procedimientos operativos ni política corporativa.</div>
         </div>`;
+      const targetStage = recentlyCompletada === null ? null : (recentlyCompletada < MODULES.length ? `route-stage-${recentlyCompletada+1}` : "route-stage-final");
       recentlyCompletada = null;
       bindCommon();
+      if (targetStage) {
+        requestAnimationFrame(() => {
+          document.getElementById(targetStage)?.scrollIntoView({behavior:"smooth",block:"center"});
+        });
+      }
     }
 
     function renderModule(id){
@@ -945,7 +951,7 @@
         if (!casePassed || !checkPassed) return;
         if (!moduleComplete(id)) { state.completed.push(id); recentlyCompletada = id; }
         state.completed = [...new Set(state.completed)].sort((a,b)=>a-b); saveState();
-        go(id === MODULES.length ? "assessment" : `module-${id+1}`);
+        go("overview");
       });
     }
 
