@@ -184,6 +184,11 @@
     .theory-card h3 { font-size: 22px; margin: 28px 0 9px; }
     .theory-card h3:first-child { margin-top: 0; }
     .theory-card p { color: #34475b; font-size: 17px; line-height: 1.78; margin: 0 0 15px; }
+    .theory-visual { margin: 26px 0 30px; overflow: hidden; border: 1px solid #c8d5df; border-radius: 22px; background: var(--navy); box-shadow: 0 18px 38px rgba(11,41,71,.14); }
+    .theory-visual img { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+    .theory-visual figcaption { display: grid; gap: 4px; padding: 17px 20px 19px; color: #dceaf2; background: linear-gradient(135deg,#071f39,#0b3656); font-size: 14px; line-height: 1.55; }
+    .theory-visual figcaption strong { color: #fff; font-size: 17px; }
+    .theory-visual-kicker { color: #79d8d1; font-size: 10px; font-weight: 950; letter-spacing: .14em; text-transform: uppercase; }
     .lens { margin: 24px 0 2px; padding: 20px 22px; border-radius: 17px; background: var(--teal-soft); border-left: 5px solid var(--teal); }
     .lens strong { display: block; color: #075d59; font-size: 12px; letter-spacing: .13em; text-transform: uppercase; margin-bottom: 7px; }
     .lens p { margin: 0; color: #174b49; }
@@ -771,6 +776,49 @@
       8: {src:"assets/route-evidence.webp",alt:"Equipo aeronáutico examinando un componente y evidencia de ciclo de vida con un Eurofighter y un A400M en el exterior",title:"Hito de evidencia y decisión",caption:"Una recomendación creíble conecta restricciones técnicas, evidencia de ciclo de vida, controles y desencadenantes de revisión."}
     };
 
+    const THEORY_VISUALS = {
+      1: {
+        src:"assets/theory-systemic-decision.webp",
+        es:{alt:"Equipo multidisciplinar de ingeniería evalúa conjuntamente un componente, materiales y evidencias operativas en un hangar",title:"Decidir dentro de un sistema",caption:"Una decisión sólida integra función, seguridad, operación, personas, recursos y consecuencias futuras en lugar de optimizar un único indicador."},
+        en:{alt:"Multidisciplinary engineering team jointly evaluates a component, materials and operational evidence in a hangar",title:"Deciding within a system",caption:"A robust decision integrates function, safety, operations, people, resources and future consequences instead of optimising a single indicator."}
+      },
+      2: {
+        src:"assets/route-systems.webp",
+        es:{alt:"Equipo de ingeniería revisa una arquitectura aeronáutica completa junto a una aeronave en mantenimiento",title:"Seguir el ciclo de vida completo",caption:"Diseño, fabricación, operación, mantenimiento, modernización y recuperación forman una cadena de decisiones conectadas."},
+        en:{alt:"Engineering team reviews a complete aircraft architecture beside an aircraft undergoing maintenance",title:"Following the complete life cycle",caption:"Design, manufacturing, operation, maintenance, upgrades and recovery form a connected chain of decisions."}
+      },
+      3: {
+        src:"assets/route-circularity.webp",
+        es:{alt:"Equipos de aviónica, pieza mecánica reparable y panel modular preparados para inspección y mantenimiento",title:"Conservar función y valor",caption:"Mantener, reparar y reutilizar de forma controlada suele conservar más valor incorporado que recuperar prematuramente solo los materiales."},
+        en:{alt:"Avionics equipment, repairable mechanical part and modular panel prepared for inspection and maintenance",title:"Preserving function and value",caption:"Controlled maintenance, repair and reuse usually preserve more embedded value than prematurely recovering materials alone."}
+      },
+      4: {
+        src:"assets/theory-supply-chain-evidence.webp",
+        es:{alt:"Especialistas examinan muestras metálicas, material compuesto, electrónica y evidencias de trazabilidad de suministro",title:"De la declaración a la evidencia",caption:"La selección responsable de materiales exige conectar origen, transformación, cadena de custodia, calidad del dato y capacidad de recuperación."},
+        en:{alt:"Specialists examine metal samples, composite material, electronics and supply traceability evidence",title:"From declaration to evidence",caption:"Responsible material selection connects origin, processing, chain of custody, data quality and recovery capability."}
+      },
+      5: {
+        src:"assets/theory-airfield-nature.webp",
+        es:{alt:"Especialistas observan pradera, drenaje y humedal gestionados junto al perímetro seguro de un aeródromo",title:"Gestionar territorio y operación conjuntamente",caption:"Comprender dependencias ecológicas y riesgos de fauna permite proteger hábitats sin debilitar la seguridad operacional."},
+        en:{alt:"Specialists observe managed grassland, drainage and wetland beside the secure perimeter of an airfield",title:"Managing territory and operations together",caption:"Understanding ecological dependencies and wildlife risks helps protect habitats without weakening operational safety."}
+      },
+      6: {
+        src:"assets/route-operations.webp",
+        es:{alt:"Aeronave de transporte en plataforma junto a pista, drenaje, pradera gestionada y zona natural separada",title:"Disponibilidad con resiliencia",caption:"La disponibilidad y la sostenibilidad se refuerzan cuando la fiabilidad, la reparación, la previsión y la logística reducen urgencias evitables."},
+        en:{alt:"Transport aircraft on an apron beside runway, drainage, managed grassland and a separated natural area",title:"Availability with resilience",caption:"Availability and sustainability reinforce each other when reliability, repair, forecasting and logistics reduce avoidable emergencies."}
+      },
+      7: {
+        src:"assets/theory-governance-evidence.webp",
+        es:{alt:"Equipo multifuncional revisa un componente, indicadores, registros y controles antes de aprobar una conclusión",title:"Evidencia que conduce a una decisión",caption:"Una afirmación creíble declara línea base, alcance, método, incertidumbre, responsables y condiciones de revisión."},
+        en:{alt:"Cross-functional team reviews a component, indicators, records and controls before approving a conclusion",title:"Evidence that leads to a decision",caption:"A credible claim states its baseline, scope, method, uncertainty, owners and review conditions."}
+      },
+      8: {
+        src:"assets/route-evidence.webp",
+        es:{alt:"Equipo aeronáutico combina el examen de un componente con datos técnicos y evidencias de ciclo de vida",title:"Integrar antes de recomendar",caption:"La recomendación final conecta restricciones innegociables, alternativas, compensaciones, controles e indicadores de seguimiento."},
+        en:{alt:"Aerospace team combines component examination with technical data and life-cycle evidence",title:"Integrate before recommending",caption:"The final recommendation connects non-negotiable constraints, alternatives, trade-offs, controls and monitoring indicators."}
+      }
+    };
+
     const FINAL_QUESTIONS = [
       {q:"¿Qué debe definirse antes de comparar la sostenibilidad de varias alternativas?",options:["Un requisito funcional común y el límite de la evaluación.","El titular de comunicación preferido.","Un único indicador universal."],correct:0},
       {q:"¿Qué significa trasladar cargas?",options:["Mover una mejora aparente a otra etapa del ciclo de vida o categoría de impacto.","Cambiar a la persona responsable del proyecto.","Utilizar más de un proveedor."],correct:0},
@@ -895,6 +943,18 @@
       }
     }
 
+    function theoryVisualHTML(id){
+      const visual = THEORY_VISUALS[id];
+      if (!visual) return "";
+      const language = document.documentElement.lang.toLowerCase().startsWith("en") ? "en" : "es";
+      const copy = visual[language];
+      const label = language === "en" ? "Theory in context" : "La teoría en contexto";
+      return `<figure class="theory-visual">
+        <img src="${visual.src}" alt="${escapeHtml(copy.alt)}" loading="lazy" decoding="async">
+        <figcaption><span class="theory-visual-kicker">${label}</span><strong>${escapeHtml(copy.title)}</strong><span>${escapeHtml(copy.caption)}</span></figcaption>
+      </figure>`;
+    }
+
     function renderModule(id){
       const m = MODULES.find(x => x.id === id);
       if (!m) return go("overview");
@@ -912,7 +972,7 @@
           <div class="module-body">
             <section class="learning-card"><h2>Objetivos de aprendizaje</h2><ul>${m.objectives.map(x=>`<li>${escapeHtml(x)}</li>`).join("")}</ul></section>
             <section class="theory-card">
-              ${m.sections.map(s=>`<div><h3>${escapeHtml(s.title)}</h3>${s.paragraphs.map(p=>`<p>${escapeHtml(p)}</p>`).join("")}${s.lens?`<div class="lens"><strong>Aplica este criterio</strong><p>${escapeHtml(s.lens)}</p></div>`:""}</div>`).join("")}
+              ${m.sections.map((s,index)=>`<div><h3>${escapeHtml(s.title)}</h3>${s.paragraphs.map(p=>`<p>${escapeHtml(p)}</p>`).join("")}${s.lens?`<div class="lens"><strong>Aplica este criterio</strong><p>${escapeHtml(s.lens)}</p></div>`:""}</div>${index===0?theoryVisualHTML(m.id):""}`).join("")}
               <div class="diagram" aria-label="Secuencia de decisión del módulo">${m.diagram.map(x=>`<div>${escapeHtml(x)}</div>`).join("")}</div>
             </section>
             <section class="case-card" id="case-${m.id}">
